@@ -1,9 +1,14 @@
+
 % Judul dokumen
 \title{Buku Tugas Akhir ITS}
-\author{Musk, Elon Reeve}
+\author{Meliaz, Muhammad Roychan}
 
 % Pengaturan ukuran teks dan bentuk halaman dua sisi
 \documentclass[10pt,twoside]{report}
+
+% START CUSTOM
+\usepackage{float}
+% END CUSTOM
 
 % Pengaturan ukuran halaman dan margin
 \usepackage[a5paper,top=25mm,left=25mm,right=20mm,bottom=25mm]{geometry}
@@ -139,6 +144,8 @@
 
   % Daftar isi
   \renewcommand*\contentsname{DAFTAR ISI}
+  \setcounter{tocdepth}{4}
+  \setcounter{secnumdepth}{4}
   \addcontentsline{toc}{chapter}{\contentsname}
   \tableofcontents
   \cleardoublepage

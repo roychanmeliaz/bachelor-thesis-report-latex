@@ -3,81 +3,90 @@
 
 % Ubah bagian-bagian berikut dengan isi dari pendahuluan
 
-Penelitian ini dilatarbelakangi oleh \lipsum[1][1-5]
+Penelitian ini di latar belakangi oleh berbagai kondisi yang menjadi acuan. Selain itu juga terdapat beberapa permasalahan yang akan dijawab sebagai luaran dari penelitian.
 
 \section{Latar Belakang}
 \label{sec:latarbelakang}
 
-Pesatnya perkembangan roket yang merupakan \lipsum[1]
+Teknologi kendaraan otonom memiliki sejarah yang cukup panjang. Purwarupa pertama yang dapat berfungsi dengan baik diciptakan pada tahun 1980. Dengan menggunakan kamera, purwarupa ini berhasil menempuh 100km jalan kosong tanpa perlu dikemudikan oleh manusia. Dengan keberhasilan ini, muncul banyak proyek pada tahun 80-an dan 90-an menggunakan sistem serupa yang digunakan untuk menyetir melalui jalan raya, baik pada lalu lintas ringan atau tidak ada sama sekali. Dalam pengembangannya, kendaraan otonom dapat memecahkan masalah keselamatan berkendara dan efisiensinya. Maka dari itu, tujuan utama dilakukan penelitian adalah untuk mencegah atau mengurangi kecelakaan lalu lintas, mengurangi waktu orang berkendara, serta mengurangi emisi karbon.\cite{cit:autonomous_vehicle_future}\par
 
-\lipsum[2]
+Salah satu produk \textit{autonomous car }yang tengah dikembangkan adalah iCar ITS (\textit{Intelligent Car }Institut Teknologi Sepuluh Nopember). iCar ITS merupakan purwarupa mobil yang dilengkapi dengan fitur pengemudian secara otonom sebagai hasil riset kolaborasi dari para peneliti ITS dengan berbagai bidang keahlian.\cite{cit:icar_menristekbrin} iCar ITS dioperasikan sebagai mobil komuter yang melayani perjalanan penumpang menuju berbagai tujuan dalam kampus ITS.\cite{cit:icar_its_news}
+
+\iffalse
+Salah satu produk kendaraan otonom yang tengah dikembangkan adalah iCar ITS, sebuah mobil yang dilengkapi dengan fitur pengemudian secara otonom yang akan berkeliling di kampus ITS sebagai mobil komuter untuk mengantarkan penumpang menuju berbagai lokasi yang di kehendaki di dalam kampus. Mobil otonom yang dikembangkan oleh ITS dengan nama iCar ITS (Intelligent Car ITS) merupakan purwarupa mobil otonom hasil kolaborasi dari peneliti-peneliti di ITS dari berbagai bidang keahlian. iCar ITS dioperasikan sebagai mobil komuter yang melayani perjalanan dalam kampus ITS.\par
+\fi
+
+Metode yang lazim digunakan untuk mengembangkan kendaraan otonom adalah \textit{reinforcement learning}, sebuah bagian dari \textit{machine learning }yang juga merupakan bagian dari \textit{artificial intelligence}. \textit{Reinforcement Learning }adalah sebuah metode pembelajaran mengenai apa yang mesti dilakukan (mengimplementasikan aksi kedalam situasi) pada sebuah masalah/\textit{problem }untuk mendapatkan hasil/\textit{reward }yang maksimal. \textit{Agent }tidak diberi \textit{clue }mengenai aksi apa yang harus dilakukan. \textit{Agent }akan mempelajari aksi dengan prinsip \textit{Trial and Error}, lalu mengambil keputusan berdasarkan \textit{reward }yang didapatkan (\textit{reward }maksimal).
+
+Dalam pengaplikasiannya, iCar ITS masih menggunakan metode tradisional rule-based tanpa memanfaatkan metode \textit{machine learning}. Metode tersebut tidak cukup baik karena pengembang harus memprogram secara manual setiap skenario yang akan dihadapi oleh iCar. Metode tersebut tidak akan bertahan lama mengingat banyaknya skenario dunia nyata yang hampir tidak mungkin untuk diberi solusi secara manual.
 
 \section{Permasalahan}
 \label{sec:permasalahan}
 
-Dari permasalahan tersebut maka \lipsum[1][1-6]
+Dari pemaparan diatas, didapatkan sebuah rumusan masalah. \textit{Autonomous car }ITS masih belum bisa melakukan manuver di bundaran atau u-turn dengan baik. Diperlukan pendekatan \textit{reinforcement learning }yang memadai agar kendaraan tersebut dapat mempelajari bagaimana caranya melakukan manuver yang lebih baik.
+	
+
 
 \section{Tujuan}
 \label{sec:Tujuan}
 
-Tujuan dari \lipsum[1][1-3] adalah:
-
+Dari pembahasan diatas, kami menarik beberapa tujuan dari dilakukannya penelitian berikut, yaitu:
 \begin{enumerate}[nolistsep]
-
-  \item Membuat \lipsum[2][1-3]
-
-  \item \lipsum[3][1-3]
-
+	\item Dihasilkannya algoritma \textit{reinforcement learning }pada mobil otonom yang mampu melakukan manuver di bundaran/u-turn dengan efisien.
+	\item Mengetahui fitur-fitur apa saja yang dibutuhkan oleh \textit{autonomus car }agar output maksimal. Dapat dicontohkan seperti dimana lokasi dan berapa derajat kemiringan dari sensor pada kendaraan yang sebaiknya diaplikasikan.
+	
 \end{enumerate}
+
 
 \section{Batasan Masalah}
 \label{sec:batasanmasalah}
 
-Batasan-batasan dari \lipsum[1][1-3] adalah:
+Batasan-batasan dari penelitian ini adalah:
 
 \begin{enumerate}[nolistsep]
-
-  \item Mempermudah \lipsum[2][1-3]
-
-  \item \lipsum[3][1-5]
-
-  \item \lipsum[4][1-5]
-
+	
+	\item Riset dilakukan dalam lingkungan simulasi dan menggunakan hanya satu bundaran. Simulator yang digunakan adalah CARLA Simulator dan map yang digunakan adalah Town03.
+	
+	\item Dilakukan dalam kondisi terkontrol tanpa hadirnya pejalan kaki dan kendaraan lainnya di sekitar agen.
+	
+	\item Simulasi yang dilakukan hanya berfokus pada kegiatan manuver mobil memutari bundaran dan u-turn.
+	
 \end{enumerate}
+
 
 \section{Sistematika Penulisan}
 \label{sec:sistematikapenulisan}
 
-Laporan penelitian tugas akhir ini terbagi menjadi \lipsum[1][1-3] yaitu:
+Laporan penelitian Tugas akhir ini tersusun dalam sistematika dan terstruktur sehingga mudah dipahami dan dipelajari oleh pembaca maupun seseorang yang ingin melanjutkan penelitian ini. Alur sistematika penulisan laporan penelitian ini yaitu:
 
 \begin{enumerate}[nolistsep]
 
   \item \textbf{BAB I Pendahuluan}
 
-  Bab ini berisi \lipsum[2][1-5]
+  Bab ini berisi uraian tentang latar belakang permasalahan, penegasan dan alasan pemilihan judul, sistematika laporan, tujuan dan metodologi penelitian.
 
   \vspace{2ex}
 
   \item \textbf{BAB II Tinjauan Pustaka}
 
-  Bab ini berisi \lipsum[3][1-5]
+  Pada bab ini berisi tentang uraian secara sistematis teori-teori yang berhubungan dengan permasalahan yang dibahas pada penelitian ini. Teori-teori ini digunakan sebagai dasar dalam penelitian, yaitu \textit{Reinforcement Learning}, mobil otonom, dan simulator CARLA.
 
   \vspace{2ex}
 
   \item \textbf{BAB III Desain dan Implementasi Sistem}
 
-  Bab ini berisi \lipsum[4][1-5]
+  Bab ini berisi tentang penjelasan-penjelasan terkait eksperimen yang akan dilakukan dan langkah-langkah data diolah hingga menghasilkan model \textit{reinforcement}. Guna mendukung eksperimen pada penelitian ini, digunakanlah blok diagram atau \textit{work flow} agar sistem yang akan dibuat dapat terlihat dan mudah dibaca untuk implementasi pada pelaksaan tugas akhir.
 
   \vspace{2ex}
 
   \item \textbf{BAB IV Pengujian dan Analisa}
 
-  Bab ini berisi \lipsum[5][1-5]
+  Bab ini menjelaskan tentang pengujian eksperimen yang dilakukan terhadap data dan analisanya. Beberapa teknik \textit{reward} dan hasilnya akan ditunjukan pada bab ini dan dilakukan analisa terhadap hasil model yang didapat dari hasil mengamati lingkungan yang tersaji.
 
   \vspace{2ex}
 
   \item \textbf{BAB V Penutup}
 
-  Bab ini berisi \lipsum[6][1-5]
+  Bab ini merupakan penutup yang berisi kesimpulan yang diambil dari penelitian yang telah dilakukan. Saran dan kritik yang membangun untuk pengembangkan lebih lanjut juga dituliskan pada bab ini.
 
 \end{enumerate}

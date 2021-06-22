@@ -3,31 +3,122 @@
 
 % Ubah bagian-bagian berikut dengan isi dari pengujian dan analisis
 
-Pada penelitian ini dipaparkan \lipsum[1][1-5]
+Pada bab ini akan membahas tentang pengujian sistem perencanaan gerakan mobil otonom dengan menggunakan algoritma DQN. Kemudian, akan dilakukan analisis terhadap hasil simulasi sistem
+perencanaan gerakan mobil otonom yang telah dirancang.
 
-\section{Skenario Pengujian}
-\label{sec:skenariopengujian}
+\section{Training DQN}
+\label{sec:training_dqn}
+Training algoritma DQN dilakukan dengan menggunakan hardware berikut:
+\begin{table}[H]
+	\begin{tabular}{ll}
+		\textbf{CPU}  & Intel Core i5              \\
+		\textbf{GPU}  & Nvidia GTX 1060 - 6GB VRAM \\
+		\textbf{RAM}  & 8GB                        \\
+		\textbf{Disk} & 256GB SSD M.2              \\
+		\textbf{OS}   & Windows 10                
+	\end{tabular}
+\caption{Hardware yang digunakan untuk learning.}
+\label{tb:hardwaresetup}
+\end{table}
 
-Pengujian dilakukan dengan \lipsum[1-2]
+Learning dilakukan dengan mesin lokal menggunakan GPU. Lingkungan software machine learning yang digunakan pada learning berupa:
 
-\section{Evaluasi Pengujian}
-\label{sec:analisispengujian}
+\begin{table}[H]
+	\begin{tabular}{ll}
+		\textbf{Software}  & \textbf{Version}              \\
+		tensorflow-gpu  & 1.13.1	\\
+		keras  & 2.2.5					\\
+		h5py & 3.1              \\
+		python & 3.7.9              \\
+	\end{tabular}
+	\caption{Lingkungan software yang digunakan untuk learning.}
+	\label{tb:softwaresetup}
+\end{table}
 
-Dari pengujian yang \lipsum[1]
 
-% Contoh pembuatan tabel
-\begin{longtable}{|c|c|c|}
-  \caption{Hasil Pengukuran Energi dan Kecepatan}
-  \label{tb:EnergiKecepatan}\\
-  \hline
-  \rowcolor[HTML]{C0C0C0}
-  \textbf{Energi} & \textbf{Jarak Tempuh} & \textbf{Kecepatan} \\
-  \hline
-  10 J & 1000 M & 200 M/s \\
-  20 J & 2000 M & 400 M/s \\
-  30 J & 4000 M & 800 M/s \\
-  40 J & 8000 M & 1600 M/s \\
-  \hline
-\end{longtable}
+Hasil dari proses training tersebut adalah model jaringan DQN yang merepresentasikan sistem perencanaan gerakan mobil otonom. Model tersebut disimpan dalam sebuah file berformat .model yang
+selanjutnya dapat divisualisasikan dengan tensorboard untuk melihat hasil training algoritma DQN. Training algoritma DQN dengan
+berlangsung selama 81 jam, 12 menit, dan 38 detik. Berikut adalah hasil visualisasi training algoritma DQN:
 
-\lipsum[2-4]
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/acc}
+	\caption{Nilai akurasi}
+	\label{fig:acc}
+\end{figure}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/loss}
+	\caption{Nilai loss}
+	\label{fig:loss}
+\end{figure}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/episode_time_avg}
+	\caption{Rerata waktu episode}
+	\label{fig:episode_time_avg}
+\end{figure}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/reward_raw_avg}
+	\caption{Rerata nilai reward \textit{raw}}
+	\label{fig:reward_raw_avg}
+\end{figure}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/reward_weighted_avg}
+	\caption{Rerata nilai reward \textit{weighted}}
+	\label{fig:reward_weighted_avg}
+\end{figure}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/q_action_0_forward_avg}
+	\caption{Nilai rerata q dari action forward}
+	\label{fig:q_action_0_forward_avg}
+\end{figure}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/q_action_1_forward_left_avg}
+	\caption{Nilai rerata q dari action forward left}
+	\label{fig:q_action_1_forward_left_avg}
+\end{figure}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/q_action_2_forward_right_avg}
+	\caption{Nilai rerata q dari action forward right}
+	\label{fig:q_action_2_forward_right_avg}
+\end{figure}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/q_all_actions_avg}
+	\caption{Nilai rerata q dari seluruh action}
+	\label{fig:q_all_actions_avg}
+\end{figure}
+
+Dari hasil visualisasi training DQN diatas, dapat dilihat bahwa proses training algoritma DQN telah berjalan dengan baik. Hal itu dapat dilihat dari nilai akurasi, \textit{episode time}, dan \textit{reward} berkendara mobil otonom yang mengalami tren kenaikan seiring dengan berjalannya proses training.
+
+\section{Pengujian Model DQN}
+\label{sec:pengujian_model_dqn}
+
+Pada bagian ini, akan dilakukan pengujian model hasil dari proses training DQN. Pengujian dilakukan saat lingkungan berkendara dalam kondisi normal.
+
+\subsection{Hasil Setelah Learning 12 jam}
+\label{sec:hasil_learning_12}
+Setelah learning selama 12 jam, didapatkan model reinforcement yang sudah cukup memahami kehadiran bundaran di depan agent. Pada salah satu run simulasi Gambar \ref{fig:uji0}, didapatkan agent yang mampu bergerak lurus ke depan hingga mendekati bundaran, dan mampu melakukan manuver kanan lalu ke kiri lagi (dan arah kembali sejajar dengan arah pada saat start) agar tidak menyentuh bundaran. Meskipun pada akhirnya agent menyentuh object rumah pada ujung jalan.
+
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=1\linewidth]{images/uji0}
+	\caption{Salah satu hasil simulasi uji. Jarak antar foto adalah 1.5 detik. Baca sekuen dari atas kiri ke kanan bawah.}
+	\label{fig:uji0}
+\end{figure}
+
+\subsection{Hasil Setelah Learning 58 jam}
+\label{sec:hasil_learning_12}
+Setelah learning selama 58 jam, didapatkan model reinforcement yang sudah cukup memahami gerakan bahwa agent harus memutari bundaran agar mendapatkan award yang lebih besar. Pada salah satu run simulasi Gambar \ref{fig:uji1}., didapatkan agent yang mampu bergerak lurus ke depan hingga mendekati bundaran, dan mampu melakukan manuver kiri untuk menghindari bundaran, lalu melakukan manuver ke kanan mengitari bundaran dan tidak menyentuh bundaran. Meskipun pada akhirnya agent menyentuh object pagar setelah mengitari hampir 3/4 dari bundaran.
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=1\linewidth]{images/uji1}
+	\caption{Salah satu hasil simulasi uji. Jarak antar foto adalah 1.2 detik. Baca sekuen dari atas kiri ke kanan bawah.}
+	\label{fig:uji1}
+\end{figure}

@@ -12,10 +12,10 @@ Sistem pada tugas akhir ini merupakan implementasi dari salah satu disiplin ilmu
 
 \section{Persiapan Lingkungan Simulasi}
 \label{sec:simulasi}
-Menggunakan simulator CARLA, digunakan map Town03 CARLA, yang memiliki bundaran dan u-turn untuk memfasilitasi pengerjaan tugas akhir. Digunakan bundaran tanpa simpang seperti pada Gambar  \ref{fig:bundaran_town03}. Pada lingkungan ini, agent akan spawn dari titik merah yang terdapat pada bagian kiri Gambar \ref{fig:bundaran_town03}.
+Menggunakan simulator CARLA, digunakan map Town03 CARLA, yang memiliki bundaran dan u-turn untuk memfasilitasi pengerjaan tugas akhir. Digunakan bundaran berjumlah simpang empat seperti pada Gambar  \ref{fig:bundaran_town03}. Pada lingkungan ini, agent akan \textit{spawn }dari dua titik \textit{spawn} di sekitar bundaran.
 \begin{figure}[H] 
 	\centering
-	\includegraphics[width=.7\linewidth]{images/spawn_point_dot}
+	\includegraphics[width=.7\linewidth]{images/bundaran}
 	\caption{Bundaran Town03}
 	\label{fig:bundaran_town03}
 \end{figure}
@@ -74,21 +74,46 @@ Ada 3 action yang bisa dilakukan oleh agen. Diantaranya:
 
 \subsection{Reward}
 \label{sec:reward}
-Fungsi reward dirancang agar mobil otonom mampu bergerak sepanjang lintasan dengan cepat dan aman. Reward yang diberikan adalah kecepatan kendaraan secara kuadratik. Nilai reward berkisar antara -1 hingga 3. Dimana -1 adalah reward yang diberikan saat agen dalam keadaan diam, dan 3 adalah reward yang diberikan saat agen dalam kecepatan maksimal. Rumus reward yang ditetapkan ialah:
+Fungsi reward dirancang agar mobil otonom mampu bergerak sepanjang lintasan dengan cepat dan aman. Ada dua buah reward yang ditetapkan dimana masing-masing reward memperhatikan referensi \textit{target lane}. Target lane adalah garis imajiner yang menjadi target gerakan mobil otonom. Terlihat pada Gambar \ref{fig:target_lane_line}, \textit{target lane} digambarkan dengan titik-titik merah di sekitar bundaran.
 
-\lstinputlisting[
-language=Python,
-caption={Sistem reward.},
-label={lst:bilanganprima}
-]{program/reward.py}
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=1\linewidth]{images/target_lane_line}
+	\caption{\textit{Target lane}}
+	\label{fig:target_lane_line}
+\end{figure}
 
-Setelah menetapkan min reward dan max reward dengan nilai -1 dan 3, didapatkan formula:
+\subsubsection{Reward 1: Deviasi sudut dari \textit{target lane}}
+Reward yang digunakan pada Reward 1 adalah 1/alpha. Alpha adalah sudut agent yang menyimpang dari \textit{target lane}. Teknis alpha dijelaskan pada Gambar \ref{fig:reward_anglediff_sketch}. 
 
-reward = \verb=(speed_kmh/ 100) ** 1.3 * 3.2 - 1=.
+Garis hitam merupakan vektor tegak lurus antara titik pusat bundaran ke titik pusat agen. Lalu garis merah adalah vektor arah mobil. Dari kedua nilai tersebut, didapat alpha yang merupakan sudut dari kedua vektor tersebut. Kemudian nilai reward didefinisikan dengan 1/alpha.
+
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=1\linewidth]{images/reward_anglediff_sketch}
+	\caption{Reward 1}
+	\label{fig:reward_anglediff_sketch}
+\end{figure}
+
+\subsubsection{Reward 2: Deviasi jarak dari \textit{target lane}}
+Reward yang digunakan pada reward 2 adalah \verb=1/deviasi_jarak*10=. Deviasi jarak adalah jarak terkecil agen terhadap \textit{target lane} dalam meter.
 
 \subsection{Punishment}
 \label{sec:punishment}
-Reward senilai -1 akan diberikan pada agent jika agent menyentuh object lain selain jalan raya, tanah, dan trotoar.
+Punishment merupakan reward yang bernilai negatif. Ada dua punishment yang diberikan.
+
+\subsubsection{Punishment 1: Sentuhan dengan obyek lain}
+Reward senilai -1 akan diberikan pada \textit{agent} jika agent menyentuh object lain selain jalan raya, tanah, dan trotoar.
+
+\subsubsection{Punishment 2: Deviasi jarak terlalu jauh}
+Reward senilai -0.5 akan diberikan pada \textit{agent} jika jarak antara \textit{agent} dan bundaran lebih besar dari 30 meter. Jarak 30 meter dari bundaran dapat dilihat di Gambar \ref{fig:punishment_lane_line}
+
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=1\linewidth]{images/punishment_lane_line}
+	\caption{\textit{Punishment lane}}
+	\label{fig:punishment_lane_line}
+\end{figure}
 
 \subsection{End Episode}
 \label{sec:end_episode}

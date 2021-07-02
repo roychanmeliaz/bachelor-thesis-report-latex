@@ -37,7 +37,28 @@ Learning dilakukan dengan mesin lokal menggunakan GPU. Lingkungan software machi
 
 
 Hasil dari proses training tersebut adalah model jaringan DQN yang merepresentasikan sistem perencanaan gerakan mobil otonom. Model tersebut disimpan dalam sebuah file berformat .model yang
-selanjutnya dapat divisualisasikan dengan tensorboard untuk melihat hasil training algoritma DQN. Training algoritma DQN dengan
+selanjutnya dapat divisualisasikan dengan tensorboard untuk melihat hasil training algoritma DQN.
+
+\subsection{Training DQN pada Bundaran Simpang Empat dengan Segmentasi Grayscale}
+\label{sec:training_dqn_bundaran_simpangempat_segmentasi_grayscale}
+
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=1\linewidth]{images/tensorboard_bundaran_simpangempat_segmentasi_grayscale}
+	\caption{Tensorboard pada Bundaran Simpang Empat dengan Segmentasi Grayscale}
+	\label{fig:tensorboard_bundaran_simpangempat_segmentasi_grayscale}
+\end{figure}
+
+Dari hasil visualisasi training DQN pada Gambar \ref{fig:tensorboard_bundaran_simpangempat_segmentasi_grayscale}, dapat dilihat bahwa proses training algoritma DQN telah berjalan dengan baik. Hal itu dapat dilihat dari nilai akurasi, episode time, dan reward berkendara mobil otonom yang mengalami tren kenaikan seiring dengan berjalannya proses training.
+
+\subsection{Training DQN pada Bundaran Simpang Empat dengan Segmentasi Lanjutan}
+\label{sec:training_dqn_bundaran_simpangempat_segmentasi_hitam_putih}
+
+\subsection{Training DQN pada Bundaran Tanpa Simpang dengan Segmentasi Lanjutan}
+\label{sec:training_dqn_bundaran_nosimpang_segmentasi_hitam_putih}
+
+\iffalse
+Training algoritma DQN dengan
 berlangsung selama 81 jam, 12 menit, dan 38 detik. Berikut adalah hasil visualisasi training algoritma DQN:
 
 \begin{figure}[H] 
@@ -97,11 +118,43 @@ berlangsung selama 81 jam, 12 menit, dan 38 detik. Berikut adalah hasil visualis
 
 Dari hasil visualisasi training DQN diatas, dapat dilihat bahwa proses training algoritma DQN telah berjalan dengan baik. Hal itu dapat dilihat dari nilai akurasi, \textit{episode time}, dan \textit{reward} berkendara mobil otonom yang mengalami tren kenaikan seiring dengan berjalannya proses training.
 
+\fi
+
 \section{Pengujian Model DQN}
 \label{sec:pengujian_model_dqn}
 
 Pada bagian ini, akan dilakukan pengujian model hasil dari proses training DQN. Pengujian dilakukan saat lingkungan berkendara dalam kondisi normal.
 
+\subsection{Pengujian Model DQN pada Bundaran Simpang Empat dengan Segmentasi Grayscale}
+\label{sec:pengujian_dqn_bundaran_simpangempat_segmentasi_grayscale}
+
+Setelah dilakukan tiga kali pengujian, didapatkan hasil seperti berikut:
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[H]
+	\resizebox{\columnwidth}{!}{%
+		\begin{tabular}{|l|l|l|l|l|}
+			\hline
+			episode\_time & speed\_avg & angle\_deviation\_avg & distance\_deviation\_avg & reward\_avg \\ \hline
+			24            & 40.2       & 17.3                  & 2.0                      & 0.32        \\ \hline
+			25            & 40.1       & 20.8                  & 1.7                      & 0.28        \\ \hline
+			16            & 38.8       & 16.6                  & 1.8                      & 0.32        \\ \hline
+		\end{tabular}%
+	}
+	\caption{Hasil pengujian.}
+	\label{tb:hasilpengujian}
+\end{table}
+
+
+\subsection{Pengujian Model DQN pada Bundaran Simpang Empat dengan Segmentasi Lanjutan}
+\label{sec:pengujian_dqn_bundaran_simpangempat_segmentasi_hitam_putih}
+
+\subsection{Pengujian Model DQN pada Bundaran Tanpa Simpang dengan Segmentasi Lanjutan}
+\label{sec:pengujian_dqn_bundaran_nosimpang_segmentasi_hitam_putih}
+
+
+\iffalse
 \subsection{Hasil Setelah Learning 12 jam}
 \label{sec:hasil_learning_12}
 Setelah learning selama 12 jam, didapatkan model reinforcement yang sudah cukup memahami kehadiran bundaran di depan agent. Pada salah satu run simulasi Gambar \ref{fig:uji0}, didapatkan agent yang mampu bergerak lurus ke depan hingga mendekati bundaran, dan mampu melakukan manuver kanan lalu ke kiri lagi (dan arah kembali sejajar dengan arah pada saat start) agar tidak menyentuh bundaran. Meskipun pada akhirnya agent menyentuh object rumah pada ujung jalan.
@@ -122,3 +175,4 @@ Setelah learning selama 58 jam, didapatkan model reinforcement yang sudah cukup 
 	\caption{Salah satu hasil simulasi uji. Jarak antar foto adalah 1.2 detik. Baca sekuen dari atas kiri ke kanan bawah.}
 	\label{fig:uji1}
 \end{figure}
+\fi

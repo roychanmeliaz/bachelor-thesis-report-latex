@@ -12,7 +12,7 @@ Dari perancangan dan pengujian sistem yang telah dilakukan, diperoleh beberapa k
 
   \item Sistem perencanaan gerakan mobil otonom berbasis algoritma DQN yang dirancang mampu melakukan akselerasi dan \textit{steer} yang mampu mengontrol mobil otonom dan memahami kondisi sekitarnya.
 
-  \item Sistem award yang dirancang berdasarkan kecepatan dari kendaraan dirasa tidak cukup untuk menghasilkan agent yang mampu mengitari bundaran.
+  \item Sistem reward yang dirancang dirasa cukup untuk menghasilkan agent yang mampu mengitari bundaran.
 
 \end{enumerate}
 
@@ -23,8 +23,14 @@ Untuk pengembangan selanjutnya pada topik penelitian perencanaan gerakan mobil o
 
 \begin{enumerate}[nolistsep]
 
+  \item Sensor yang digunakan untuk navigasi dari \textit{agent }menggunakan algoritma DQN dapat ditambah menjadi lebih banyak seperti GPS serta LIDAR, agar \textit{agent} dapat bertindak dengan parameter yang lebih lengkap.
+
+  \item Proses training dapat dilakukan dengan waktu yang lebih panjang serta menggunakan mesin dengan tenaga komputasi yang lebih kuat agar didapatkan model yang konvergen.
+
+  \iffalse
   \item Memperbaiki sistem award, dimana sebaiknya memikirkan sudut kendaraan terhadap pusat bundaran, serta jarak kendaraan terhadap bagian tengah jalan.
 
   \item Membuat tolak ukur metrik yang memadai untuk bagian pengujian model berupa plot riwayat gerakan kendaraan serta plot kecepatan kendaraan.
+  \fi
 
 \end{enumerate}

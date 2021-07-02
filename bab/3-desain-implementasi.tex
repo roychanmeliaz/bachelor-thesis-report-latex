@@ -12,12 +12,24 @@ Sistem pada tugas akhir ini merupakan implementasi dari salah satu disiplin ilmu
 
 \section{Persiapan Lingkungan Simulasi}
 \label{sec:simulasi}
-Menggunakan simulator CARLA, digunakan map Town03 CARLA, yang memiliki bundaran dan u-turn untuk memfasilitasi pengerjaan tugas akhir. Digunakan bundaran berjumlah simpang empat seperti pada Gambar  \ref{fig:bundaran_town03}. Pada lingkungan ini, agent akan \textit{spawn }dari dua titik \textit{spawn} di sekitar bundaran.
+Menggunakan simulator CARLA, digunakan map Town03 CARLA, yang memiliki bundaran dan u-turn untuk memfasilitasi pengerjaan tugas akhir. Terdapat dua jenis bundaran yang digunakan pada tugas akhir ini.
+
+\subsection{Bundaran Simpang Empat}
+Digunakan bundaran berjumlah simpang empat seperti pada Gambar  \ref{fig:bundaran_town03}. Pada lingkungan ini, agent akan \textit{spawn }dari empat titik \textit{spawn} di sekitar bundaran.
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=.7\linewidth]{images/bundaran}
-	\caption{Bundaran Town03}
+	\caption{Bundaran Simpang Empat}
 	\label{fig:bundaran_town03}
+\end{figure}
+
+\subsection{Bundaran Tanpa Simpang}
+Digunakan bundaran tanpa simpang seperti pada Gambar  \ref{fig:bundaran_tanpa_simpang}. Pada lingkungan ini, agent akan \textit{spawn }dari sebuah titik \textit{spawn} awal bundaran.
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/bundaran_tanpa_simpang}
+	\caption{Bundaran Tanpa Simpang}
+	\label{fig:bundaran_tanpa_simpang}
 \end{figure}
 
 \section{Sensor}
@@ -27,7 +39,7 @@ Sensor menggunakan sensor kamera yang diletakkan secara fisik di bagian depan ba
 
 \section{Akuisisi Data}
 \label{sec:akuisisi_data}
-Data citra diambil dari sensor dengan ukuran 480x270. Citra yang digunakan adalah citra segmentasi yang telah disediakan oleh sensor kamera segmentasi dari CARLA Simulator.
+Data citra diambil dari sensor dengan ukuran 480x270. Citra yang digunakan adalah citra segmentasi yang telah disediakan oleh sensor kamera segmentasi dari CARLA Simulator. Terlihat pada Gambar \ref{fig:citra_rgb} merupakan citra awal. Kemudian dilakukan segmentasi pada citra tersebut sehingga setiap obyek dipresentasikan dengan warna solid seperti pada Gambar \ref{fig:segmentasi}
 
 \begin{figure}[H] 
 	\centering
@@ -41,23 +53,36 @@ Data citra diambil dari sensor dengan ukuran 480x270. Citra yang digunakan adala
 	\caption{Citra Segmentasi}
 	\label{fig:segmentasi}
 \end{figure}
-Citra segmentasi kemudian diberi filter grayscale agar dapat meminimalkan data yang dianalisa namun tetap mempertahankan fitur yang ada.
+Ada dua jenis citra yang digunakan dalam tugas akhir ini, yaitu citra segmentasi grayscale dan citra segmentasi lanjutan.
+
+Citra segmentasi grayscale merupakan citra segmentasi yang kemudian diberi filter grayscale agar dapat meminimalkan data yang dianalisa namun tetap mempertahankan fitur yang ada.
+
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=.7\linewidth]{images/grayscale}
-	\caption{Citra Grayscale}
+	\caption{Citra Segmentasi Grayscale}
 	\label{fig:grayscale}
 \end{figure}
-Citra grayscale ini akan menjadi hasil akhir akuisi citra yang kemudian akan diberikan ke algoritma DQN untuk melakukan learning model dan/atau inference model.
 
-\section{Action}
+Citra segmentasi lanjutan merupakan citra segmentasi, yang kemudian di segmentasi kembali menjadi dua jenis obyek, yaitu \textit{drivable }dan \textit{non-drivable}. Obyek \textit{drivable} dipresentasikan dengan warna putih dan obyek \textit{non-drivable} dipresentasikan dengan warna hitam.
+
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.7\linewidth]{images/segmentasi_hitam_putih}
+	\caption{Citra Segmentasi Lanjutan}
+	\label{fig:segmentasi_hitam_putih}
+\end{figure}
+
+Citra segmentasi grayscale dan citra segmentasi lanjutan akan menjadi hasil akhir akuisi citra yang kemudian akan diberikan ke algoritma DQN untuk melakukan \textit{training} model dan/atau \textit{inference} model.
+
+\section{\textit{Action}}
 \label{sec:action}
-Ada 3 action yang bisa dilakukan oleh agen. Diantaranya:
+Ada 3 \textit{action} yang bisa dilakukan oleh \textit{agent}. Diantaranya:
 
 \begin{enumerate}[nolistsep]
 	\item \verb=forward=
 	
-	Agent \textit{throttle} dengan nilai 1 dan \textit{steer} dengan nilai 0. Dengan demikian agent akan melakukan gerakan manuver maju.
+	\textit{Agent} \textit{throttle} dengan nilai 1 dan \textit{steer} dengan nilai 0. Dengan demikian agent akan melakukan gerakan manuver maju.
 	
 	\item \verb=forward_left=
 	
@@ -69,12 +94,12 @@ Ada 3 action yang bisa dilakukan oleh agen. Diantaranya:
 	
 \end{enumerate}
 
-\section{Sistem Reward}
+\section{\textit{Reward Function}}
 \label{sec:sistem_reward}
 
-\subsection{Reward}
-\label{sec:reward}
-Fungsi reward dirancang agar mobil otonom mampu bergerak sepanjang lintasan dengan cepat dan aman. Ada dua buah reward yang ditetapkan dimana masing-masing reward memperhatikan referensi \textit{target lane}. Target lane adalah garis imajiner yang menjadi target gerakan mobil otonom. Terlihat pada Gambar \ref{fig:target_lane_line}, \textit{target lane} digambarkan dengan titik-titik merah di sekitar bundaran.
+Fungsi reward dirancang agar mobil otonom mampu bergerak sepanjang lintasan dengan cepat dan aman.
+
+\subsection{Bundaran Simpang Empat}Ada dua buah reward yang ditetapkan dimana masing-masing reward memperhatikan referensi \textit{target lane}. Target lane adalah garis imajiner yang menjadi target gerakan mobil otonom. Terlihat pada Gambar \ref{fig:target_lane_line}, \textit{target lane} digambarkan dengan titik-titik merah di sekitar bundaran.
 
 \begin{figure}[H] 
 	\centering
@@ -83,10 +108,8 @@ Fungsi reward dirancang agar mobil otonom mampu bergerak sepanjang lintasan deng
 	\label{fig:target_lane_line}
 \end{figure}
 
-\subsubsection{Reward 1: Deviasi sudut dari \textit{target lane}}
+\subsubsection{\textit{Reward} 1: Deviasi sudut dari \textit{target lane}}
 Reward yang digunakan pada Reward 1 adalah 1/alpha. Alpha adalah sudut agent yang menyimpang dari \textit{target lane}. Teknis alpha dijelaskan pada Gambar \ref{fig:reward_anglediff_sketch}. 
-
-Garis hitam merupakan vektor tegak lurus antara titik pusat bundaran ke titik pusat agen. Lalu garis merah adalah vektor arah mobil. Dari kedua nilai tersebut, didapat alpha yang merupakan sudut dari kedua vektor tersebut. Kemudian nilai reward didefinisikan dengan 1/alpha.
 
 \begin{figure}[H] 
 	\centering
@@ -95,25 +118,118 @@ Garis hitam merupakan vektor tegak lurus antara titik pusat bundaran ke titik pu
 	\label{fig:reward_anglediff_sketch}
 \end{figure}
 
-\subsubsection{Reward 2: Deviasi jarak dari \textit{target lane}}
+Garis hitam merupakan vektor tegak lurus antara titik pusat bundaran ke titik pusat agen. Lalu garis merah adalah vektor arah mobil. Dari kedua nilai tersebut, didapat alpha yang merupakan sudut dari kedua vektor tersebut. Kemudian nilai reward didefinisikan dengan 1/alpha.
+
+Potongan kode dari fungsi reward deviasi sudut terdapat pada Listing \ref{lst:reward_deviasi_sudut}.
+
+\lstinputlisting[
+language=Python,
+caption={Reward Deviasi Sudut.},
+label={lst:reward_deviasi_sudut}
+]{program/reward_deviasi_sudut.py}
+
+Terlihat pada potongan kode Listing \ref{lst:reward_deviasi_sudut} nilai tertinggi reward dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent tidak terlalu tinggi untuk perubahan nilai yang kecil.
+
+
+\subsubsection{\textit{Reward} 2: Deviasi jarak dari \textit{target lane}}
 Reward yang digunakan pada reward 2 adalah \verb=1/deviasi_jarak*10=. Deviasi jarak adalah jarak terkecil agen terhadap \textit{target lane} dalam meter.
 
-\subsection{Punishment}
-\label{sec:punishment}
-Punishment merupakan reward yang bernilai negatif. Ada dua punishment yang diberikan.
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.85\linewidth]{images/reward_deviasi_jarak}
+	\caption{Reward 2}
+	\label{fig:reward_deviasi_jarak}
+\end{figure}
 
-\subsubsection{Punishment 1: Sentuhan dengan obyek lain}
-Reward senilai -1 akan diberikan pada \textit{agent} jika agent menyentuh object lain selain jalan raya, tanah, dan trotoar.
+Potongan kode dari fungsi reward deviasi jarak terdapat pada Listing \ref{lst:reward_deviasi_jarak}.
 
-\subsubsection{Punishment 2: Deviasi jarak terlalu jauh}
+\lstinputlisting[
+language=Python,
+caption={Reward Deviasi Jarak.},
+label={lst:reward_deviasi_jarak}
+]{program/reward_deviasi_jarak.py}
+
+Terlihat pula pada potongan kode Listing \ref{lst:reward_deviasi_jarak} nilai tertinggi reward dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada Reward 1.
+
+
+Selain reward yang bernilai positif, diperlukan juga reward yang bernilai negatif untuk mengurangi peluang agent melakukan hal yang sebaiknya tidak dilakukan. Ada dua buah reward bernilai negatif yang diberikan.
+
+\subsubsection{\textit{Reward} 3: Sentuhan dengan obyek lain}
+Reward senilai -1 akan diberikan pada \textit{agent} jika agent menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
+
+Potongan kode dari fungsi reward sentuhan dengan obyek lain terdapat pada Listing \ref{lst:reward_car_collided}.
+
+\lstinputlisting[
+language=Python,
+caption={Reward Sentuhan dengan Obyek Lain.},
+label={lst:reward_car_collided}
+]{program/reward_car_collided.py}
+
+\subsubsection{\textit{Reward} 4: Deviasi jarak terlalu besar}
 Reward senilai -0.5 akan diberikan pada \textit{agent} jika jarak antara \textit{agent} dan bundaran lebih besar dari 30 meter. Jarak 30 meter dari bundaran dapat dilihat di Gambar \ref{fig:punishment_lane_line}
 
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=1\linewidth]{images/punishment_lane_line}
-	\caption{\textit{Punishment lane}}
+	\caption{Batasan jarak}
 	\label{fig:punishment_lane_line}
 \end{figure}
+
+Potongan kode dari fungsi reward deviasi jarak terlalu besar terdapat pada Listing \ref{lst:reward_too_far}.
+
+\lstinputlisting[
+language=Python,
+caption={Reward Deviasi Jarak Terlalu Besar.},
+label={lst:reward_too_far}
+]{program/reward_too_far.py}
+
+
+\subsubsection{\textit{Reward }Total}
+Total nilai reward didefinisikan dengan Reward 1 + Reward 2 + Reward 3 + Reward 4.
+
+\subsection{Bundaran Tanpa Simpang}
+Pada bundaran tanpa simpang, fungsi reward yang diberikan berbeda. Pada kasus ini disediakan titik-titik jalur sebagai \textit{waypoint} yang harus diikuti oleh \textit{agent}.
+
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=1\linewidth]{images/waypoint}
+	\caption{\textit{Waypoint}}
+	\label{fig:waypoint}
+\end{figure}
+
+\textit{Waypoint} merupakan titik-titik pada map sebagai target tujuan jalannya \textit{agent}. Terlihat pada Gambar \ref{fig:waypoint}, titik-titik merah merupakan ilustrasi dari waypoint. Waypoint berjumlah 100 titik dimana setiap titiknya berjarak satu meter.
+
+\subsubsection{\textit{Reward} Total}
+Reward didefinisikan dengan 1/alpha. Alpha merupakan deviasi sudut arah \textit{agent }terhadap arah titik \textit{waypoint} terdekat dari \textit{agent} + 5.
+
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=1\linewidth]{images/waypoint_fromside}
+	\caption{\textit{Waypoint }dari Sisi \textit{Agent}}
+	\label{fig:waypoint_fromside}
+\end{figure}
+
+Gambar \ref{fig:waypoint_fromside} menunjukkan bahwa \textit{waypoint} terdekat + 5 dari \textit{agent} berjarak enam meter dari pusat koordinat \textit{agent}.
+
+\begin{figure}[H] 
+	\centering
+	\includegraphics[width=.5\linewidth]{images/reward_alpha}
+	\caption{Reward Alpha}
+	\label{fig:reward_alpha}
+\end{figure}
+
+Ilustrasi fungsi reward dapat dilihat pada Gambar \ref{fig:reward_alpha}, dimana titik-titik hijau adalah \textit{waypoints}, garis merah adalah arah dari \textit{agent}, garis hitam adalah arah dari \textit{agent} ke \textit{waypoint}+5 dari \textit{agent}, serta alpha adalah perbedaan sudut dari kedua nilai sudut tersebut.
+
+Potongan kode dari fungsi reward terdapat pada Listing \ref{lst:reward_alpha}.
+
+\lstinputlisting[
+language=Python,
+caption={Reward Alpha.},
+label={lst:reward_alpha}
+]{program/reward_alpha.py}
+
+Terlihat pula pada potongan kode Listing \ref{lst:reward_alpha} nilai tertinggi reward dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada Reward 1 dan Reward 2 pada bundaran simpang empat.
+
 
 \subsection{End Episode}
 \label{sec:end_episode}
@@ -196,7 +312,9 @@ MIN_REPLAY_MEMORY_SIZE = 5_000
 	\caption{Hyperparameter epsilon.}
 	\label{tb:hyperparameter_epsilon}
 \end{table}
-Penentuan parameter epsilon ditentukan oleh kondisi berikut. Epsilon akan bernilai 1 saat pertamakali memulai learning atau pada saat episode 0. Setiap dimulainya episode baru, nilai epsilon akan dikurangi sebanyak 0.9995 hingga pada akhirnya akan bernilai 0.1 setelah 1800 episode. Pengurangan nilai epsilon akan berhenti setelah sampai pada nilai 0.1.
+Penentuan parameter epsilon ditentukan oleh kondisi berikut. Epsilon akan bernilai 1 saat pertamakali memulai learning atau pada saat episode 0. Setiap dimulainya episode baru, nilai epsilon akan dikali dengan nilai 0.9995 hingga pada akhirnya akan bernilai 0.1 setelah 4700 episode. Pengurangan nilai epsilon akan berhenti setelah sampai pada nilai 0.1.
+
+Penentuan parameter \textit{epsilon-greedy} ini dilakukan agar agent mampu melakukan kegiatan eksplorasi dan eksploitasi dengan tepat. Sehingga hasil yang didapatkan akan baik dalam waktu cepat.
 \label{sec:epsilon}
 
 \iffalse
@@ -261,13 +379,16 @@ label={lst:bilanganprima}
 	\caption{Diagram Blok Metodologi}
 	\label{fig:blockdiagram}
 \end{figure}
+
+Proses training dilakukan setelah seluruh konfigurasi selesai dilakukan. Metodologi training dari tugas akhir ini terdapat pada Gambar \ref{fig:blockdiagram}. \textit{Agent} yang berada pada simulasi melakukan suatu \textit{action} yang menyebabkan berubahnya \textit{state}. \textit{State} yang berupa citra segmentasi dan kecepatan agent (kmpj) serta \textit{reward }dari \textit{agent} kemudian dikirimkan ke DQN untuk dilakukan training. Hasil dari training berupa \textit{policy },  akan menentukan\textit{action} yang kemudian akan dilaksanakan oleh \textit{agent}. Kemudian proses tersebut akan terulang kembali menjadi sebuah siklus yang tak henti.
+
+\iffalse
 Tugas akhir ini akan menggunakan metode \textit{deep reinforcement learning}, yaitu \textit{reinforcement learning }yang disertai dengan \textit{deep learning }untuk mempelajari \textit{policy }apa yang cocok untuk digunakan oleh \textit{agent}. 
 
 Algoritma deep reinforcement learning yang digunakan adalah Deep Q Network (DQN). Deep Q Network merupakan implementasi neural network atau deep learning pada Q-learning.
 
 Parameter yang diberikan pada DQN adalah citra yang telah di segmentasi lalu diubah menjadi grayscale, serta kecepatan kendaraan dalam nilai kmpj.
-
-
+\fi
 
 
 

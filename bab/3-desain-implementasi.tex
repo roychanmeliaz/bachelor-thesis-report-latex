@@ -2,7 +2,7 @@
 \label{chap:desainimplementasi}
 
 % Ubah bagian-bagian berikut dengan isi dari desain dan implementasi
-Bab ini akan menjelaskan mengenai sistem perencanaan gerakan mobil otonom, mulai dari konfigurasi sensor pada Simulator mobil otonom, perancangan informasi dan parameter lingkungan berkendara pada Simulator mobil otonom, perancangan sistem berkendara mobil otonom, hingga perancangan arsitektur algoritma DQN yang digunakan dalam Tugas Akhir ini.
+Bab ini akan menjelaskan mengenai sistem perencanaan gerakan mobil otonom, mulai dari konfigurasi sensor pada Simulator mobil otonom, perancangan informasi dan parameter lingkungan berkendara pada simulator mobil otonom, perancangan sistem berkendara mobil otonom, hingga perancangan arsitektur algoritma DQN yang digunakan dalam Tugas Akhir ini.
 
 
 \section{Deskripsi Sistem}
@@ -12,10 +12,10 @@ Sistem pada tugas akhir ini merupakan implementasi dari salah satu disiplin ilmu
 
 \section{Persiapan Lingkungan Simulasi}
 \label{sec:simulasi}
-Menggunakan simulator CARLA, digunakan map Town03 CARLA, yang memiliki bundaran dan u-turn untuk memfasilitasi pengerjaan tugas akhir. Terdapat dua jenis bundaran yang digunakan pada tugas akhir ini.
+Menggunakan simulator CARLA, digunakan \textit{map} Town03 CARLA, yang memiliki bundaran dan \textit{u-turn }untuk memfasilitasi pengerjaan tugas akhir. Terdapat dua jenis bundaran yang digunakan pada tugas akhir ini.
 
 \subsection{Bundaran Simpang Empat}
-Digunakan bundaran berjumlah simpang empat seperti pada Gambar  \ref{fig:bundaran_town03}. Pada lingkungan ini, agent akan \textit{spawn }dari empat titik \textit{spawn} di sekitar bundaran.
+Digunakan bundaran berjumlah simpang empat seperti pada Gambar  \ref{fig:bundaran_town03}. Pada lingkungan ini, \textit{agent} akan \textit{spawn }dari empat titik \textit{spawn} di sekitar bundaran.
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=.7\linewidth]{images/bundaran}
@@ -24,7 +24,7 @@ Digunakan bundaran berjumlah simpang empat seperti pada Gambar  \ref{fig:bundara
 \end{figure}
 
 \subsection{Bundaran Tanpa Simpang}
-Digunakan bundaran tanpa simpang seperti pada Gambar  \ref{fig:bundaran_tanpa_simpang}. Pada lingkungan ini, agent akan \textit{spawn }dari sebuah titik \textit{spawn} awal bundaran.
+Digunakan bundaran tanpa simpang seperti pada Gambar  \ref{fig:bundaran_tanpa_simpang}. Pada lingkungan ini, \textit{agent} akan \textit{spawn }dari sebuah titik \textit{spawn} awal bundaran.
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=.7\linewidth]{images/bundaran_tanpa_simpang}
@@ -34,7 +34,7 @@ Digunakan bundaran tanpa simpang seperti pada Gambar  \ref{fig:bundaran_tanpa_si
 
 \section{Sensor}
 \label{sec:sensor}
-Sensor menggunakan sensor kamera yang diletakkan secara fisik di bagian depan bawah dari agen. Sensor kamera yang digunakan adalah sensor kamera segmentasi. Sensor kamera segmentasi adalah sensor kamera yang memisahkan object-object di simulator menjadi berbagai warna unik yang solid. Citra yang dihasilkan dari sensor kamera segmentasi pada Gambar \ref{fig:segmentasi} adalah citra lanjutan yang telah di proses dari citra RGB pada gambar \ref{fig:citra_rgb}
+Sensor menggunakan sensor kamera yang diletakkan secara fisik di bagian depan bawah dari agen. Sensor kamera yang digunakan adalah sensor kamera segmentasi. Sensor kamera segmentasi adalah sensor kamera yang memisahkan obyek-obyek di simulator menjadi berbagai warna unik yang solid. Citra yang dihasilkan dari sensor kamera segmentasi pada Gambar \ref{fig:segmentasi} adalah citra lanjutan yang telah di proses dari citra RGB pada gambar \ref{fig:citra_rgb}
 
 
 \section{Akuisisi Data}
@@ -97,9 +97,9 @@ Ada 3 \textit{action} yang bisa dilakukan oleh \textit{agent}. Diantaranya:
 \section{\textit{Reward Function}}
 \label{sec:sistem_reward}
 
-Fungsi reward dirancang agar mobil otonom mampu bergerak sepanjang lintasan dengan cepat dan aman.
+Fungsi \textit{reward} dirancang agar mobil otonom mampu bergerak sepanjang lintasan dengan cepat dan aman.
 
-\subsection{Bundaran Simpang Empat}Ada empat buah reward yang ditetapkan. Masing-masing reward memperhatikan referensi \textit{target lane}. Target lane adalah garis imajiner yang menjadi target gerakan mobil otonom. Terlihat pada Gambar \ref{fig:target_lane_line}, \textit{target lane} digambarkan dengan titik-titik merah di sekitar bundaran.
+\subsection{Bundaran Simpang Empat}Ada empat buah \textit{reward} yang ditetapkan. Masing-masing \textit{reward} memperhatikan referensi \textit{target lane}. \textit{Target lane} adalah garis imajiner yang menjadi target gerakan mobil otonom. Terlihat pada Gambar \ref{fig:target_lane_line}, \textit{target lane} digambarkan dengan titik-titik merah di sekitar bundaran.
 
 \begin{figure}[H] 
 	\centering
@@ -109,7 +109,7 @@ Fungsi reward dirancang agar mobil otonom mampu bergerak sepanjang lintasan deng
 \end{figure}
 
 \subsubsection{\textit{Reward} 1: Deviasi sudut dari \textit{target lane}}
-Reward yang digunakan pada Reward 1 adalah 1/alpha. Alpha adalah sudut agent yang menyimpang dari \textit{target lane}. Teknis alpha dijelaskan pada Gambar \ref{fig:reward_anglediff_sketch}. 
+\textit{Reward }yang digunakan pada \textit{Reward }1 adalah 1/alpha. Alpha adalah sudut \textit{agent }yang menyimpang dari \textit{target lane}. Teknis alpha dijelaskan pada Gambar \ref{fig:reward_anglediff_sketch}. 
 
 \begin{figure}[H] 
 	\centering
@@ -118,21 +118,21 @@ Reward yang digunakan pada Reward 1 adalah 1/alpha. Alpha adalah sudut agent yan
 	\label{fig:reward_anglediff_sketch}
 \end{figure}
 
-Garis hitam merupakan vektor tegak lurus antara titik pusat bundaran ke titik pusat agen. Lalu garis merah adalah vektor arah mobil. Dari kedua nilai tersebut, didapat alpha yang merupakan sudut dari kedua vektor tersebut. Kemudian nilai reward didefinisikan dengan 1/alpha.
+Garis hitam merupakan vektor tegak lurus antara titik pusat bundaran ke titik pusat \textit{agent}. Lalu garis merah adalah vektor arah mobil. Dari kedua nilai tersebut, didapat alpha yang merupakan sudut dari kedua vektor tersebut. Kemudian nilai \textit{reward }didefinisikan dengan 1/alpha.
 
-Potongan kode dari fungsi reward deviasi sudut terdapat pada Listing \ref{lst:reward_deviasi_sudut}.
+Potongan kode dari fungsi \textit{reward} deviasi sudut terdapat pada Listing \ref{lst:reward_deviasi_sudut}.
 
 \lstinputlisting[
 language=Python,
-caption={Reward Deviasi Sudut.},
+caption={\textit{Reward} Deviasi Sudut.},
 label={lst:reward_deviasi_sudut}
 ]{program/reward_deviasi_sudut.py}
 
-Terlihat pada potongan kode Listing \ref{lst:reward_deviasi_sudut} nilai tertinggi reward dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent tidak terlalu tinggi untuk perubahan nilai yang kecil.
+Terlihat pada potongan kode Listing \ref{lst:reward_deviasi_sudut} nilai tertinggi \textit{reward} dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent tidak terlalu tinggi untuk perubahan nilai yang kecil.
 
 
 \subsubsection{\textit{Reward} 2: Deviasi jarak dari \textit{target lane}}
-Reward yang digunakan pada reward 2 adalah \verb=1/deviasi_jarak*10=. Deviasi jarak adalah jarak terkecil agen terhadap \textit{target lane} dalam meter.
+\textit{Reward} yang digunakan pada \textit{reward} 2 adalah \verb=1/deviasi_jarak*10=. Deviasi jarak adalah jarak terkecil \textit{agent} terhadap \textit{target lane} dalam meter.
 
 \begin{figure}[H] 
 	\centering
@@ -141,32 +141,32 @@ Reward yang digunakan pada reward 2 adalah \verb=1/deviasi_jarak*10=. Deviasi ja
 	\label{fig:reward_deviasi_jarak}
 \end{figure}
 
-Potongan kode dari fungsi reward deviasi jarak terdapat pada Listing \ref{lst:reward_deviasi_jarak}.
+Potongan kode dari fungsi \textit{reward} deviasi jarak terdapat pada Listing \ref{lst:reward_deviasi_jarak}.
 
 \lstinputlisting[
 language=Python,
-caption={Reward Deviasi Jarak.},
+caption={\textit{Reward} Deviasi Jarak.},
 label={lst:reward_deviasi_jarak}
 ]{program/reward_deviasi_jarak.py}
 
-Terlihat pula pada potongan kode Listing \ref{lst:reward_deviasi_jarak} nilai tertinggi reward dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada Reward 1.
+Terlihat pula pada potongan kode Listing \ref{lst:reward_deviasi_jarak} nilai tertinggi \textit{reward} dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi \textit{reward} yang diberikan ke \textit{agent} juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada \textit{Reward} 1.
 
 
-Selain reward yang bernilai positif, diperlukan juga reward yang bernilai negatif untuk mengurangi peluang agent melakukan hal yang sebaiknya tidak dilakukan. Ada dua buah reward bernilai negatif yang diberikan.
+Selain \textit{reward} yang bernilai positif, diperlukan juga \textit{reward} yang bernilai negatif untuk mengurangi peluang \textit{agent} melakukan hal yang sebaiknya tidak dilakukan. Ada dua buah \textit{reward} bernilai negatif yang diberikan.
 
 \subsubsection{\textit{Reward} 3: Sentuhan dengan obyek lain}
-Reward senilai -1 akan diberikan pada \textit{agent} jika agent menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
+\textit{Reward} senilai -1 akan diberikan pada \textit{agent} jika \textit{agent} menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
 
-Potongan kode dari fungsi reward sentuhan dengan obyek lain terdapat pada Listing \ref{lst:reward_car_collided}.
+Potongan kode dari fungsi \textit{reward} sentuhan dengan obyek lain terdapat pada Listing \ref{lst:reward_car_collided}.
 
 \lstinputlisting[
 language=Python,
-caption={Reward Sentuhan dengan Obyek Lain.},
+caption={\textit{Reward} Sentuhan dengan Obyek Lain.},
 label={lst:reward_car_collided}
 ]{program/reward_car_collided.py}
 
 \subsubsection{\textit{Reward} 4: Deviasi jarak terlalu besar}
-Reward senilai -0.5 akan diberikan pada \textit{agent} jika jarak antara \textit{agent} dan bundaran lebih besar dari 30 meter. Jarak 30 meter dari bundaran dapat dilihat di Gambar \ref{fig:punishment_lane_line}
+\textit{Reward} senilai -0.5 akan diberikan pada \textit{agent} jika jarak antara \textit{agent} dan bundaran lebih besar dari 30 meter. Jarak 30 meter dari bundaran dapat dilihat di Gambar \ref{fig:punishment_lane_line}
 
 \begin{figure}[H] 
 	\centering
@@ -175,7 +175,7 @@ Reward senilai -0.5 akan diberikan pada \textit{agent} jika jarak antara \textit
 	\label{fig:punishment_lane_line}
 \end{figure}
 
-Potongan kode dari fungsi reward deviasi jarak terlalu besar terdapat pada Listing \ref{lst:reward_too_far}.
+Potongan kode dari fungsi \textit{reward} deviasi jarak terlalu besar terdapat pada Listing \ref{lst:reward_too_far}.
 
 \lstinputlisting[
 language=Python,
@@ -185,10 +185,10 @@ label={lst:reward_too_far}
 
 
 \subsubsection{\textit{Reward }Total}
-Total nilai reward didefinisikan dengan Reward 1 + Reward 2 + Reward 3 + Reward 4.
+Total nilai \textit{reward} didefinisikan dengan \textit{Reward }1 + \textit{Reward }2 + \textit{Reward }3 + \textit{Reward }4.
 
 \subsection{Bundaran Tanpa Simpang}
-Pada bundaran tanpa simpang, fungsi reward yang diberikan berbeda. Pada kasus ini disediakan titik-titik jalur sebagai \textit{waypoint} yang harus diikuti oleh \textit{agent}.
+Pada bundaran tanpa simpang, fungsi \textit{reward} yang diberikan berbeda. Pada kasus ini disediakan titik-titik jalur sebagai \textit{waypoint} yang harus diikuti oleh \textit{agent}.
 
 \begin{figure}[H] 
 	\centering
@@ -197,10 +197,10 @@ Pada bundaran tanpa simpang, fungsi reward yang diberikan berbeda. Pada kasus in
 	\label{fig:waypoint}
 \end{figure}
 
-\textit{Waypoint} merupakan titik-titik pada map sebagai target tujuan jalannya \textit{agent}. Terlihat pada Gambar \ref{fig:waypoint}, titik-titik merah merupakan ilustrasi dari waypoint. Waypoint berjumlah 100 titik dimana setiap titiknya berjarak satu meter.
+\textit{Waypoint} merupakan titik-titik pada \textit{map} sebagai target tujuan jalannya \textit{agent}. Terlihat pada Gambar \ref{fig:waypoint}, titik-titik merah merupakan ilustrasi dari \textit{waypoint}. \textit{Waypoint} berjumlah 100 titik dimana setiap titiknya berjarak satu meter.
 
 \subsubsection{\textit{Reward} 1: Deviasi Sudut dari Waypoint}
-Reward didefinisikan dengan 1/alpha. Alpha merupakan deviasi sudut arah \textit{agent }terhadap arah titik \textit{waypoint} terdekat dari \textit{agent} + 5.
+\textit{Reward} didefinisikan dengan 1/alpha. Alpha merupakan deviasi sudut arah \textit{agent }terhadap arah titik \textit{waypoint} terdekat dari \textit{agent} + 5.
 
 \begin{figure}[H] 
 	\centering
@@ -218,35 +218,35 @@ Gambar \ref{fig:waypoint_fromside} menunjukkan bahwa \textit{waypoint} terdekat 
 	\label{fig:reward_alpha}
 \end{figure}
 
-Ilustrasi fungsi reward dapat dilihat pada Gambar \ref{fig:reward_alpha}, dimana titik-titik hijau adalah \textit{waypoints}, garis merah adalah arah dari \textit{agent}, garis hitam adalah arah dari \textit{agent} ke \textit{waypoint}+5 dari \textit{agent}, serta alpha adalah perbedaan sudut dari kedua nilai sudut tersebut.
+Ilustrasi fungsi \textit{reward} dapat dilihat pada Gambar \ref{fig:reward_alpha}, dimana titik-titik hijau adalah \textit{waypoints}, garis merah adalah arah dari \textit{agent}, garis hitam adalah arah dari \textit{agent} ke \textit{waypoint}+5 dari \textit{agent}, serta alpha adalah perbedaan sudut dari kedua nilai sudut tersebut.
 
-Potongan kode dari fungsi reward terdapat pada Listing \ref{lst:reward_alpha}.
+Potongan kode dari fungsi \textit{reward} terdapat pada Listing \ref{lst:reward_alpha}.
 
 \lstinputlisting[
 language=Python,
-caption={Reward Alpha.},
+caption={\textit{Reward} Alpha.},
 label={lst:reward_alpha}
 ]{program/reward_alpha.py}
 
-Terlihat pula pada potongan kode Listing \ref{lst:reward_alpha} nilai tertinggi reward dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada Reward 1 dan Reward 2 pada bundaran simpang empat.
+Terlihat pula pada potongan kode Listing \ref{lst:reward_alpha} nilai tertinggi \textit{reward} dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi \textit{reward} yang diberikan ke \textit{agent} juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada \textit{Reward} 1 dan \textit{Reward} 2 pada bundaran simpang empat.
 
 \subsubsection{\textit{Reward} 2: Sentuhan dengan obyek lain}
-Reward senilai -1 akan diberikan pada \textit{agent} jika agent menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
+\textit{Reward} senilai -1 akan diberikan pada \textit{agent} jika \textit{agent} menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
 
-Potongan kode dari fungsi reward sentuhan dengan obyek lain terdapat pada Listing \ref{lst:reward_car_collided}.
+Potongan kode dari fungsi \textit{reward} sentuhan dengan obyek lain terdapat pada Listing \ref{lst:reward_car_collided}.
 
 \subsubsection{\textit{Reward }Total}
-Total nilai reward didefinisikan dengan Reward 1 + Reward 2.
+Total nilai \textit{reward} didefinisikan dengan \textit{Reward} 1 + \textit{Reward} 2.
 
 \subsection{End Episode}
 \label{sec:end_episode}
-Waktu maksimal yang diberikan pada agent untuk melakukan proses learning setiap episodenya adalah 10 detik.
+Waktu maksimal yang diberikan pada \textit{agent} untuk melakukan proses \textit{training} setiap episodenya adalah 10 detik.
 
-Episode akan berakhir jika waktu maksimal episode berakhir atau agent menyentuh object lain selain jalan raya, tanah, dan trotoar.
+Episode akan berakhir jika waktu maksimal episode berakhir atau agent menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
 
 \section{Parameter DQN}
 \label{sec:parameter_dqn}
-Penentuan nilai hyperparameter yang tepat merupakan salah satu langkah yang penting dilakukan untuk mendapatkan model pembelajaran mesin yang baik. Dalam machine learning, hyperparameter adalah parameter yang digunakan untuk mengatur jalannya proses pembelajaran mesin. Berbeda dengan parameter model yang nilainya mengalami perubahan seiring berjalannya pembelajaran mesin, hyperparameter perlu didefinisikan di awal dan umumnya bernilai tetap sepanjang proses pembelajaran. Dalam tugas akhir ini, hyperparameter dari algoritma DQN didefinisikan sebagai berikut:
+Penentuan nilai \textit{hyperparameter} yang tepat merupakan salah satu langkah yang penting dilakukan untuk mendapatkan model pembelajaran mesin yang baik. Dalam \textit{machine learning}, \textit{hyperparameter} adalah parameter yang digunakan untuk mengatur jalannya proses pembelajaran mesin. Berbeda dengan parameter model yang nilainya mengalami perubahan seiring berjalannya pembelajaran mesin, \textit{hyperparameter} perlu didefinisikan di awal dan umumnya bernilai tetap sepanjang proses pembelajaran. Dalam tugas akhir ini, \textit{hyperparameter} dari algoritma DQN didefinisikan sebagai berikut:
 
 \subsection{Model}
 \label{sec:model}
@@ -254,7 +254,7 @@ Penentuan nilai hyperparameter yang tepat merupakan salah satu langkah yang pent
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{|l|l|l|}
 			\hline
-			\textbf{Hyperparameter}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
+			\textbf{\textit{Hyperparameter}}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
 			MINIBATCH\_SIZE           & 16             & \begin{tabular}[c]{@{}l@{}}Jumlah sampel pembelajaran yang\\ diproses oleh perhitungan SGD\\ (stochastic gradient) algoritma DQN\end{tabular} \\ \hline
 			PREDICTION\_BATCH\_SIZE   & 1              & \begin{tabular}[c]{@{}l@{}}Jumlah sampel yang di prediksi\\ di saat yang bersamaan\end{tabular}                                               \\ \hline
 			TRAINING\_BATCH\_SIZE     & 8              & \begin{tabular}[c]{@{}l@{}}Jumlah sampel yang di fit di saat\\ yang bersamaan (lebih besar lebih\\ cepat)\end{tabular}                        \\ \hline
@@ -283,7 +283,7 @@ SAVE_CHECKPOINT_EVERY = 50
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{|l|l|l|}
 			\hline
-			\textbf{Hyperparameter}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
+			\textbf{\textit{Hyperparameter}}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
 			DISCOUNT                  & 0.99           & \begin{tabular}[c]{@{}l@{}}Nilai faktor discount dalam\\ perhitungan reward algoritma DQN\end{tabular}                                        \\ \hline
 			REPLAY\_MEMORY\_SIZE      & 20\_000        & \begin{tabular}[c]{@{}l@{}}Berapa banyak step terakhir yang\\ disimpan untuk training model\end{tabular}                                      \\ \hline
 			MIN\_REPLAY\_MEMORY\_SIZE & 5\_000         & \begin{tabular}[c]{@{}l@{}}Jumlah step minimum dalam\\ memori untuk memulai training\end{tabular}                                             \\ \hline
@@ -303,13 +303,13 @@ MIN_REPLAY_MEMORY_SIZE = 5_000
 \end{verbatim}
 \fi
 
-\subsection{Epsilon}
+\subsection{\textit{Epsilon}}
 
 \begin{table}[H]
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{|l|l|l|}
 			\hline
-			\textbf{Hyperparameter}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
+			\textbf{\textit{Hyperparameter}}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
 
 			START\_EPSILON            & 1              & \begin{tabular}[c]{@{}l@{}}Nilai epsilon saat pertamakali\\ mulai training\end{tabular}                                                       \\ \hline
 			EPSILON\_DECAY            & 0.9995         & \begin{tabular}[c]{@{}l@{}}Penurunan nilai epsilon di setiap\\ episodenya\end{tabular}                                                        \\ \hline
@@ -319,9 +319,9 @@ MIN_REPLAY_MEMORY_SIZE = 5_000
 	\caption{Hyperparameter epsilon.}
 	\label{tb:hyperparameter_epsilon}
 \end{table}
-Penentuan parameter epsilon ditentukan oleh kondisi berikut. Epsilon akan bernilai 1 saat pertamakali memulai learning atau pada saat episode 0. Setiap dimulainya episode baru, nilai epsilon akan dikali dengan nilai 0.9995 hingga pada akhirnya akan bernilai 0.1 setelah 4700 episode. Pengurangan nilai epsilon akan berhenti setelah sampai pada nilai 0.1.
+Penentuan parameter \textit{epsilon} ditentukan oleh kondisi berikut. \textit{Epsilon} akan bernilai 1 saat pertamakali memulai learning atau pada saat episode 0. Setiap dimulainya episode baru, nilai \textit{epsilon} akan dikali dengan nilai 0.9995 hingga pada akhirnya akan bernilai 0.1 setelah 4700 episode. Pengurangan nilai \textit{epsilon} akan berhenti setelah sampai pada nilai 0.1.
 
-Penentuan parameter \textit{epsilon-greedy} ini dilakukan agar agent mampu melakukan kegiatan eksplorasi dan eksploitasi dengan tepat. Sehingga hasil yang didapatkan akan baik dalam waktu cepat.
+Penentuan parameter \textit{epsilon-greedy} ini dilakukan agar \textit{agent} mampu melakukan kegiatan eksplorasi dan eksploitasi dengan tepat. Sehingga hasil yang didapatkan akan baik dalam waktu cepat.
 \label{sec:epsilon}
 
 \iffalse
@@ -360,7 +360,7 @@ Berikut adalah arsitektur yang digunakan:
 \label{tb:arsitektur_model}
 \end{table}
 
-Diberikan konvolusi kepada citra image sebanyak 3 kali. Setiap konvolusi dilakukan dengan average pooling. Proses selanjutnya setelah konvolusi adalah menambahkan data kecepatan agent. Kemudian pada akhir dari proses akan didapatkan output action berjumlah 3.
+Diberikan konvolusi kepada citra \textit{image} sebanyak 3 kali. Setiap konvolusi dilakukan dengan \textit{average pooling}. Proses selanjutnya setelah konvolusi adalah menambahkan data kecepatan \textit{agent}. Kemudian pada akhir dari proses akan didapatkan \textit{output} \textit{action} berjumlah 3.
 
 Berikut adalah potongan program untuk model 64x3.
 \lstinputlisting[
@@ -369,15 +369,15 @@ caption={Model 64x3.},
 label={lst:bilanganprima}
 ]{program/model64x3.py}
 
-Berikut adalah potongan program untuk hidden dense.
+Berikut adalah potongan program untuk \textit{hidden dense}.
 \lstinputlisting[
 language=Python,
-caption={Hidden dense.},
+caption={\textit{Hidden dense}.},
 label={lst:bilanganprima}
 ]{program/hidden_dense.py}
 
 
-\section{Training}
+\section{\textit{Training}}
 \label{sec:training}
 
 \begin{figure}[H] 
@@ -387,14 +387,14 @@ label={lst:bilanganprima}
 	\label{fig:blockdiagram}
 \end{figure}
 
-Proses training dilakukan setelah seluruh konfigurasi selesai dilakukan. Metodologi training dari tugas akhir ini terdapat pada Gambar \ref{fig:blockdiagram}. \textit{Agent} yang berada pada simulasi melakukan suatu \textit{action} yang menyebabkan berubahnya \textit{state}. \textit{State} yang berupa citra segmentasi dan kecepatan agent (kmpj) serta \textit{reward }dari \textit{agent} kemudian dikirimkan ke DQN untuk dilakukan training. Hasil dari training berupa \textit{policy },  akan menentukan\textit{action} yang kemudian akan dilaksanakan oleh \textit{agent}. Kemudian proses tersebut akan terulang kembali menjadi sebuah siklus yang tak henti.
+Proses \textit{training} dilakukan setelah seluruh konfigurasi selesai dilakukan. Metodologi \textit{training} dari tugas akhir ini terdapat pada Gambar \ref{fig:blockdiagram}. \textit{Agent} yang berada pada simulasi melakukan suatu \textit{action} yang menyebabkan berubahnya \textit{state}. \textit{State} yang berupa citra segmentasi dan kecepatan \textit{agent} (kmpj) serta \textit{reward }dari \textit{agent} kemudian dikirimkan ke DQN untuk dilakukan \textit{tra}ining. Hasil dari \textit{training} berupa \textit{policy },  akan menentukan\textit{action} yang kemudian akan dilaksanakan oleh \textit{agent}. Kemudian proses tersebut akan terulang kembali menjadi sebuah siklus yang tak henti.
 
 \iffalse
 Tugas akhir ini akan menggunakan metode \textit{deep reinforcement learning}, yaitu \textit{reinforcement learning }yang disertai dengan \textit{deep learning }untuk mempelajari \textit{policy }apa yang cocok untuk digunakan oleh \textit{agent}. 
 
-Algoritma deep reinforcement learning yang digunakan adalah Deep Q Network (DQN). Deep Q Network merupakan implementasi neural network atau deep learning pada Q-learning.
+Algoritma \textit{deep reinforcement learning} yang digunakan adalah \textit{Deep Q Network} (DQN). \textit{Deep Q Network} merupakan implementasi \textit{neural network} atau \textit{deep learning} pada \textit{Q-learning}.
 
-Parameter yang diberikan pada DQN adalah citra yang telah di segmentasi lalu diubah menjadi grayscale, serta kecepatan kendaraan dalam nilai kmpj.
+Parameter yang diberikan pada DQN adalah citra, serta kecepatan kendaraan dalam nilai kmpj.
 \fi
 
 

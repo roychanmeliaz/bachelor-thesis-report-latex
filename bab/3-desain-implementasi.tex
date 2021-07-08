@@ -99,7 +99,7 @@ Ada 3 \textit{action} yang bisa dilakukan oleh \textit{agent}. Diantaranya:
 
 Fungsi reward dirancang agar mobil otonom mampu bergerak sepanjang lintasan dengan cepat dan aman.
 
-\subsection{Bundaran Simpang Empat}Ada dua buah reward yang ditetapkan dimana masing-masing reward memperhatikan referensi \textit{target lane}. Target lane adalah garis imajiner yang menjadi target gerakan mobil otonom. Terlihat pada Gambar \ref{fig:target_lane_line}, \textit{target lane} digambarkan dengan titik-titik merah di sekitar bundaran.
+\subsection{Bundaran Simpang Empat}Ada empat buah reward yang ditetapkan. Masing-masing reward memperhatikan referensi \textit{target lane}. Target lane adalah garis imajiner yang menjadi target gerakan mobil otonom. Terlihat pada Gambar \ref{fig:target_lane_line}, \textit{target lane} digambarkan dengan titik-titik merah di sekitar bundaran.
 
 \begin{figure}[H] 
 	\centering
@@ -199,7 +199,7 @@ Pada bundaran tanpa simpang, fungsi reward yang diberikan berbeda. Pada kasus in
 
 \textit{Waypoint} merupakan titik-titik pada map sebagai target tujuan jalannya \textit{agent}. Terlihat pada Gambar \ref{fig:waypoint}, titik-titik merah merupakan ilustrasi dari waypoint. Waypoint berjumlah 100 titik dimana setiap titiknya berjarak satu meter.
 
-\subsubsection{\textit{Reward} Total}
+\subsubsection{\textit{Reward} 1: Deviasi Sudut dari Waypoint}
 Reward didefinisikan dengan 1/alpha. Alpha merupakan deviasi sudut arah \textit{agent }terhadap arah titik \textit{waypoint} terdekat dari \textit{agent} + 5.
 
 \begin{figure}[H] 
@@ -230,6 +230,13 @@ label={lst:reward_alpha}
 
 Terlihat pula pada potongan kode Listing \ref{lst:reward_alpha} nilai tertinggi reward dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada Reward 1 dan Reward 2 pada bundaran simpang empat.
 
+\subsubsection{\textit{Reward} 2: Sentuhan dengan obyek lain}
+Reward senilai -1 akan diberikan pada \textit{agent} jika agent menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
+
+Potongan kode dari fungsi reward sentuhan dengan obyek lain terdapat pada Listing \ref{lst:reward_car_collided}.
+
+\subsubsection{\textit{Reward }Total}
+Total nilai reward didefinisikan dengan Reward 1 + Reward 2.
 
 \subsection{End Episode}
 \label{sec:end_episode}

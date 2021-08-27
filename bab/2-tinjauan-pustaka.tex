@@ -30,7 +30,7 @@ Demi mendukung penelitian ini, dibutuhkan beberapa teori penunjang sebagai bahan
 \section{Dasar Teori}
 \label{sec:dasarteori}
 
-\subsection{Autonomous Vehicle}
+\subsection{\textit{Autonomous Vehicle}}
 
 \textit{Autonomous Vehicle} atau kendaraan otonom dapat didefinisikan sebagai kendaraan yang mampu melihat lingkungannya, memutuskan rute apa yang akan digunakan untuk mencapai tujuannya, dan mengendarai dirinya secara mandiri. Dengan kata lain bisa dikatakan kendaraan otonom adalah kendaraan pintar atau robot yang menggunakan berbagai sensor, prosesor komputer, dan basis data untuk mengambil alih beberapa atau semua fungsi mengemudi dari operator manusia. Mobil yang dilengkapi teknologi ini akan memiliki kelebihan tersendiri seperti mengurangi tabrakan, energi konsumsi, dan juga polusi.\cite{cit:autonomous_vehicle_future}
 
@@ -56,11 +56,11 @@ Demi mendukung penelitian ini, dibutuhkan beberapa teori penunjang sebagai bahan
 
 Saat ini, level otomasi SAE dari iCar ITS berada pada antara level 3 sampai level 4. \cite{cit:icar_its_news}
 
-\subsection{Machine Learning}
+\subsection{\textit{Machine Learning}}
 
 \textit{Machine learning} adalah sebuah cabang dari \textit{artificial intellegence} (AI). \textit{artificial intellegence} memiliki pengertian yang sangat luas, umumnya memiliki arti bagaimana komputer bisa memiliki kecerdasan seperti halnya manusia. \textit{Machine Learning }menurut Arthur Samuel, seorang ilmuwan di bidang komputer yang mencetuskan kecerdasan buatan (\textit{artificial intellegence}) pertama kali, adalah sebuah bidang yang memberi kemampuan komputer untuk belajar tanpa diberi program secara eksplisit. \textit{Machine learning} menggunaan metode statistika untuk membuat komputer dapat mempelajari pola pada data atau biasanya disebut sebagai \textit{pattern recognition}. \cite{cit:ml_patternrecog}
 
-\subsection{Deep Learning}
+\subsection{\textit{Deep Learning}}
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=.4\linewidth]{images/deep_learning}
@@ -69,7 +69,7 @@ Saat ini, level otomasi SAE dari iCar ITS berada pada antara level 3 sampai leve
 \end{figure}
 \textit{Deep learning} merupakan salah satu bagian dari \textit{machine learning}. \textit{Deep learning} dapat dikatakan sebagai algoritma yang menggunakan jaringan syaraf tiruan (\textit{Artificial Neural Network} atau disingkat ANN) untuk menyelesaikan permasalahan pada domain \textit{machine learning}. ANN digunakan sebagai pendekatan dalam pengolahan informasi yang terinspirasi dari bagaimana tiap neuron dalam otak manusia bekerja. Tiap saling berhubungan dan informasi mengalir dari suatu neuron ke neuron lainnya. \cite{cit:deep_learning}
 
-\subsection{Reinforcement Learning}
+\subsection{\textit{Reinforcement Learning}}
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=.4\linewidth]{images/reinforcement_learning}
@@ -78,58 +78,58 @@ Saat ini, level otomasi SAE dari iCar ITS berada pada antara level 3 sampai leve
 \end{figure}
 \textit{Reinforcement Learning }adalah salah satu teknik dari \textit{Machine Learning }dimana \textit{agent }belajar berdasarkan pengalaman yang dialami oleh \textit{agent }tersebut dengan dilengkapi sedikit atau tanpa pengetahuan sebelumnya. \textit{Reinforcement Learning }mempelajari sesuatu hal dengan cara melakukan aksi tertentu dan melihat hasil dari aksi tersebut.\cite{cit:rl_book}
 
-\subsubsection{Skema Kerja Reinforcement Learning}
-Seperti pada Gambar \ref{fig:reinforcement_learning}, agen (agent) menerima informasi dari lingkungan (environment) dalam bentuk state. Agen merupakan subjek utama yang melakukan pembelajaran. Lalu, agen memutuskan action apa yang perlu dilakukan berdasarkan informasi lingkungan yang telah didapatkan. Action merupakan serangkaian kemungkinan gerakan yang akan dilakukan oleh agen. Setelah action dilakukan, lingkungan akan berubah dan memberi informasi state baru disertai dengan reward yang didapatkan.
+\subsubsection{Skema Kerja \textit{Reinforcement Learning}}
+Seperti pada Gambar \ref{fig:reinforcement_learning}, agen (\textit{agent}) menerima informasi dari lingkungan (\textit{environment}) dalam bentuk \textit{state}. Agen merupakan subjek utama yang melakukan pembelajaran. Lalu, agen memutuskan \textit{action }apa yang perlu dilakukan berdasarkan informasi lingkungan yang telah didapatkan. \textit{Action }merupakan serangkaian kemungkinan gerakan yang akan dilakukan oleh agen. Setelah \textit{action }dilakukan, lingkungan akan berubah dan memberi informasi \textit{state }baru disertai dengan \textit{reward }yang didapatkan.
 
-Reward adalah skor yang dapat bernilai positif atau negatif sesuai dengan informasi yang didapatkan dari lingkungan. Agen akan belajar dan melakukan transisi dari state awal hingga state akhir. Proses pembelajaran dari awal hingga akhir ini disebut dengan episode. Sementara state, reward, dan action di tiap perjalanannya dikenal dengan istilah trajectory. Tujuan dari agen adalah untuk memaksimalkan reward yang diperoleh dengan memilih action yang tepat dalam tiap state-nya. Perilaku agen dalam menentukan action yang dipilih berdasarkan state yang diperoleh disebut dengan policy
+\textit{Reward }adalah skor yang dapat bernilai positif atau negatif sesuai dengan informasi yang didapatkan dari lingkungan. Agen akan belajar dan melakukan transisi dari \textit{state }awal hingga \textit{state }akhir. Proses pembelajaran dari awal hingga akhir ini disebut dengan episode. Sementara \textit{state}, \textit{reward}, dan \textit{action }di tiap perjalanannya dikenal dengan istilah \textit{trajectory}. Tujuan dari agen adalah untuk memaksimalkan \textit{reward }yang diperoleh dengan memilih \textit{action }yang tepat dalam tiap \textit{state}-nya. Perilaku agen dalam menentukan \textit{action }yang dipilih berdasarkan \textit{state }yang diperoleh disebut dengan \textit{policy}
 
-Salah satu permasalahan yang dihadapi dalam reinforcement learning adalah memodelkan lingkungan yang tepat dalam melakukan pembelajaran terhadap agen. Karena dibutuhkan banyak percobaan yang berulang-ulang untuk dapat memperoleh hasil pembelajaran yang baik, maka perlu dilakukan pembelajaran di Simulator yang tepat sebelum algoritma dapat diimplementasikan di lingkungan sebenarnya.
+Salah satu permasalahan yang dihadapi dalam \textit{reinforcement learning }adalah memodelkan lingkungan yang tepat dalam melakukan pembelajaran terhadap agen. Karena dibutuhkan banyak percobaan yang berulang-ulang untuk dapat memperoleh hasil pembelajaran yang baik, maka perlu dilakukan pembelajaran di simulator yang tepat sebelum algoritma dapat diimplementasikan di lingkungan sebenarnya.
 \iffalse
 \subsubsection{Markov Decision Process (MDP)}
 \subsubsection{Value Function}
 \fi
-\subsection{Deep Reinforcement Learning}
+\subsection{\textit{Deep Reinforcement Learning}}
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=.4\linewidth]{images/deep_rl}
 	\caption{Deep Reinforcement Learning}
 	\label{fig:deep_reinforcement_learning}
 \end{figure}
-\textit{Deep Reinforcement Learning }(deep RL) adalah subbidang \textit{machine learning }yang menggabungkan \textit{reinforcement learning }(RL) dan \textit{deep learning}. RL mempertimbangkan masalah pembelajaran agen komputasi untuk membuat keputusan dengan trial and error. Deep RL menggabungkan \textit{deep learning }ke dalam solusinya, memungkinkan agen untuk membuat keputusan dari data masukan yang tidak terstruktur tanpa rekayasa secara manual. Algoritma Deep RL dapat menerima input yang sangat besar dan memutuskan tindakan apa yang harus dilakukan untuk mengoptimalkan tujuan. \textit{Deep Reinforcement Learning }telah digunakan untuk beragam aplikasi termasuk namun tidak terbatas pada robotika, video game, pemrosesan bahasa alami, visi komputer, pendidikan, transportasi, keuangan, dan perawatan kesehatan.\cite{cit:intro_to_deeprl}
+\textit{Deep Reinforcement Learning }(\textit{Deep }RL) adalah subbidang \textit{machine learning }yang menggabungkan \textit{reinforcement learning }(RL) dan \textit{deep learning}. RL mempertimbangkan masalah pembelajaran agen komputasi untuk membuat keputusan dengan trial and error. \textit{Deep }RL menggabungkan \textit{deep learning }ke dalam solusinya, memungkinkan agen untuk membuat keputusan dari data masukan yang tidak terstruktur tanpa rekayasa secara manual. Algoritma \textit{Deep }RL dapat menerima input yang sangat besar dan memutuskan tindakan apa yang harus dilakukan untuk mengoptimalkan tujuan. \textit{Deep Reinforcement Learning }telah digunakan untuk beragam aplikasi termasuk namun tidak terbatas pada robotika, \textit{video game}, pemrosesan bahasa alami, visi komputer, pendidikan, transportasi, keuangan, dan perawatan kesehatan.\cite{cit:intro_to_deeprl}
 
-\subsection{Convolution Neural Network}
-Hubel dan Wiesel merupakan salah satu pelopor pemodelan arsitektur multi-layer perceptron (MLP) yang menjadi dasar dari pengembangan algoritma CNN [12]. MLP merupakan sebuah arsitektur yang memodelkan sebuah sistem jaringan saraf dalam beberapa lapisan neuron, mulai dari yang sederhana hingga kompleks. MLP biasa terdiri dari satu lapisan masukan (input layer), satu atau lebih lapisan tersembunyi (hidden layer), dan satu lapisan keluaran (output layer). MLP yang memiliki banyak lapisan tersembunyi disebut juga Deep Neural Network (DNN).
+\subsection{\textit{Convolution Neural Network}}
+Hubel dan Wiesel merupakan salah satu pelopor pemodelan arsitektur \textit{multi-layer perceptron }(MLP) yang menjadi dasar dari pengembangan algoritma CNN. MLP merupakan sebuah arsitektur yang memodelkan sebuah sistem jaringan saraf dalam beberapa lapisan neuron, mulai dari yang sederhana hingga kompleks. MLP biasa terdiri dari satu lapisan masukan (\textit{input layer}), satu atau lebih lapisan tersembunyi (\textit{hidden layer}), dan satu lapisan keluaran (\textit{output layer}). MLP yang memiliki banyak lapisan tersembunyi disebut juga \textit{Deep Neural Network }(DNN).
 
-Untuk menghasilkan performa jaringan arsitektur MLP yang baik, diperlukan metode yang tepat untuk melatih jaringan arsitektur MLP tersebut. Salah satu metode yang dapat digunakan adalah teknik propagasi balik (back-propagation). Propagasi balik merupakan teknik yang memungkinkan MLP untuk belajar dari hasil umpan balik prediksi yang telah dilakukan.
+Untuk menghasilkan performa jaringan arsitektur MLP yang baik, diperlukan metode yang tepat untuk melatih jaringan arsitektur MLP tersebut. Salah satu metode yang dapat digunakan adalah teknik propagasi balik (\textit{back-propagation}). Propagasi balik merupakan teknik yang memungkinkan MLP untuk belajar dari hasil umpan balik prediksi yang telah dilakukan.
 
-Convolutional neural network (CNN) merupakan salah satu metode pengembangan dari MLP yang banyak digunakan untuk mengenali sebuah pola, seperti pengolahan gambar dan pengenalan suara. Pada tahun 1998, dengan mengimplementasikan feature extraction, Yann Lecun berhasil menjadi yang pertama dalam mengembangkan algoritma CNN, LeNet-5, yang digunakan untuk mengenali tulisan tangan.
+Convolutional neural network (CNN) merupakan salah satu metode pengembangan dari MLP yang banyak digunakan untuk mengenali sebuah pola, seperti pengolahan gambar dan pengenalan suara. Pada tahun 1998, dengan mengimplementasikan \textit{feature extraction}, Yann Lecun berhasil menjadi yang pertama dalam mengembangkan algoritma CNN, LeNet-5, yang digunakan untuk mengenali tulisan tangan.
 
-Arsitektur CNN dibagi menjadi 2 bagian besar, yaitu feature learning dan classification. Feature learning merupakan lapisan yang berguna menerjemahkan informasi yang terdapat dalam sebuah gambar sebagai sebuah atribut gambar dalam bentuk array multidimensi. Sedangkan classification berguna mengolah array multidimensi tersebut hingga diklasifikasikan dalam fully connected layer.
+Arsitektur CNN dibagi menjadi 2 bagian besar, yaitu \textit{feature learning }dan \textit{classification}. \textit{Feature learning }merupakan lapisan yang berguna menerjemahkan informasi yang terdapat dalam sebuah gambar sebagai sebuah atribut gambar dalam bentuk \textit{array }multidimensi. Sedangkan \textit{classification }berguna mengolah \textit{array }multidimensi tersebut hingga diklasifikasikan dalam \textit{fully connected layer}.
 
-\subsubsection{Convolution Layer}
-Convolutional layer merupakan lapisan yang berguna mengenali objek berdasarkan atribut-atribut yang memiliki lebih banyak informasi. Atribut-atribut yang lebih rendah dapat membentuk atribut yang lebih tinggi, contohnya wajah yang terbentuk dari mata, telinga, hidung, dll. Kemudian, mata yang terbentuk dari lengkungan, bintik hitam, dll.
+\subsubsection{\textit{Convolution Layer}}
+\textit{Convolutional layer }merupakan lapisan yang berguna mengenali objek berdasarkan atribut-atribut yang memiliki lebih banyak informasi. Atribut-atribut yang lebih rendah dapat membentuk atribut yang lebih tinggi, contohnya wajah yang terbentuk dari mata, telinga, hidung, dll. Kemudian, mata yang terbentuk dari lengkungan, bintik hitam, dll.
 
 Untuk dapat mengenali atribut yang terdapat pada sebuah gambar, lapisan konvolusi memerlukan sebuah filter. Filter sendiri merupakan sebuah matriks berukuran 3x3 yang diberi bobot tertentu sesuai dengan jenisnya. Filter sendiri terdiri dari beberapa macam, yaitu filter Mean, Gaussian, atau Median.
 
 Setelah filter ditentukan, maka selanjutnya proses konvolusi dapat dilakukan. Konvolusi merupakan sebuah proses pengaplikasian filter pada sebuah gambar dimana filter digeser secara vertikal dan horizontal pada gambar.
 
-\subsubsection{Pooling Layer}
-Pooling layer merupakan lapisan yang bertujuan mengurangi dimensi atau resolusi sebuah gambar dengan tetap mempertahankan informasi yang diperoleh dari gambar. Terdapat 2 jenis pooling yang umum digunakan, yaitu max pooling dan average pooling. Metode max pooling mengambil nilai terbesar dari tiap matriks yang mengalami proses reduksi. Sedangkan average pooling menggunakan nilai rata-rata dalam melakukan proses reduksi matriks. Berikut adalah ilustrasi perbandingan kedua metode tersebut.
+\subsubsection{\textit{Pooling Layer}}
+\textit{Pooling layer }merupakan lapisan yang bertujuan mengurangi dimensi atau resolusi sebuah gambar dengan tetap mempertahankan informasi yang diperoleh dari gambar. Terdapat 2 jenis \textit{pooling }yang umum digunakan, yaitu \textit{max pooling }dan \textit{average pooling}. Metode \textit{max pooling }mengambil nilai terbesar dari tiap matriks yang mengalami proses reduksi. Sedangkan \textit{average pooling }menggunakan nilai rata-rata dalam melakukan proses reduksi matriks. 
 
-\subsubsection{Fully Connected Layer}
-Pada fully connected layer tiap komponen lapisan dalam jaringan akan saling terhubung dengan lapisan lainnya. Penerapan dari fully connected layer sama dengan multi layer perceptron (MLP) yang memiliki tujuan untuk mentransformasikan dimensi data agar proses klasifikasi data dapat dilakukan secara linear. Sebelum data masuk ke fully connected layer, data terlebih dahulu ditransformasi menjadi data satu dimensi agar tidak kehilangan informasi dari tiap neuronnya.
+\subsubsection{\textit{Fully Connected Layer}}
+Pada \textit{fully connected layer }tiap komponen lapisan dalam jaringan akan saling terhubung dengan lapisan lainnya. Penerapan dari \textit{fully connected layer }sama dengan \textit{multi layer perceptron }(MLP) yang memiliki tujuan untuk mentransformasikan dimensi data agar proses klasifikasi data dapat dilakukan secara linear. Sebelum data masuk ke \textit{fully connected layer}, data terlebih dahulu ditransformasi menjadi data satu dimensi agar tidak kehilangan informasi dari tiap neuronnya.
 
-\subsubsection{Padding}
-Padding adalah parameter (piksel bernilai 0) yang ditambahkan di setiap sisi gambar untuk mengatasi hilangnya informasi pada gambar saat proses konvolusi berlangsung. Dengan menggunakan padding, dimensi dari keluaran akan tetap sama atau setidaknya tidak berkurang secara signifikan. 
+\subsubsection{\textit{Padding}}
+\textit{Padding }adalah parameter (piksel bernilai 0) yang ditambahkan di setiap sisi gambar untuk mengatasi hilangnya informasi pada gambar saat proses konvolusi berlangsung. Dengan menggunakan \textit{padding}, dimensi dari keluaran akan tetap sama atau setidaknya tidak berkurang secara signifikan. 
 
-\subsubsection{Stride}
-Stride adalah parameter yang menentukan berapa kali jumlah pergeseran filter dilakukan. Semakin kecil nilai stride yang ditentukan, maka semakin jelas pula informasi yang akan kita dapatkan dari sebuah gambar, namun juga akan membutuhkan proses komputasi yang lebih lama dan besar. Sebagai contoh, diasumsikan sebuah citra memiliki dimensi ukuran 7x7 dengan menggunakan stride 1. Akan didapatkan keluaran dengan ukuran dimensi 5x5 dan ketika digunakan stride 2 maka keluaran yang didapatkan memiliki ukuran dimensi 3x3. Didapatkan persamaan dengan N merupakan ukuran masukan, F merupakan ukuran filter, S merupakan ukuran stride, dan O merupakan ukuran keluaran.
+\subsubsection{\textit{Stride}}
+\textit{Stride }adalah parameter yang menentukan berapa kali jumlah pergeseran filter dilakukan. Semakin kecil nilai \textit{stride }yang ditentukan, maka semakin jelas pula informasi yang akan kita dapatkan dari sebuah gambar, namun juga akan membutuhkan proses komputasi yang lebih lama dan besar. Sebagai contoh, diasumsikan sebuah citra memiliki dimensi ukuran 7x7 dengan menggunakan \textit{stride }1. Akan didapatkan keluaran dengan ukuran dimensi 5x5 dan ketika digunakan \textit{stride }2 maka keluaran yang didapatkan memiliki ukuran dimensi 3x3. Didapatkan persamaan dengan N merupakan ukuran masukan, F merupakan ukuran filter, S merupakan ukuran stride, dan O merupakan ukuran keluaran seperti dijelaskan pada Persamaan \ref{eq:stride}.
 \begin{equation}
 	\label{eq:stride}
 	O = 1 +\frac{N-F}{S}
 \end{equation}
 
-\subsubsection{Activation Function}
+\subsubsection{\textit{Activation Function}}
 Fungsi aktivasi merupakan fungsi yang memetakan berbagai masukan dalam suatu neuron menjadi nilai keluaran dari jaringan tersebut. Fungsi aktivasi berperan membuat model jaringan syaraf yang dihasilkan mampu mengatasi permasalahan non linier. Pada dasarnya, terdapat beberapa macam fungsi aktivasi, seperti sigmoid, Tanh, gaussian, ReLU, dll. Namun, pada tugas akhir ini akan digunakan fungsi aktivasi ReLU dalam algoritma CNN dan DQN. Fungsi aktivasi ReLU merupakan fungsi aktivasi yang mengubah nilai keluaran menjadi nol saat nilai masukannya bernilai negatif.
 
 \subsection{Carla Simulator}
@@ -165,12 +165,16 @@ Beberapa penelitian yang dapat ditemukan terkait dengan topik yang dibawakan ole
 	\item \textit{Controlling an Autonomous Vehicle with Deep Reinforcement Learning oleh A. Folkers, M. Rick dan C. Büskens (2019)}\newline
 	Paper ini menyajikan pendekatan kontrol untuk kendaraan otonom menggunakan \textit{deep reinforcement learning}. Melakukan penelitian untuk eksplorasi tempat parkir beserta \textit{obstacle avoidance }untuk kendaraan \textit{full-sized}. Penelitian tersebut merupakan salah satu penelitian pertama yang berhasil menerapkan \textit{deep reinforcement learning }pada kendaraan nyata.\cite{cit:2}
 	
-	\item \textit{Autonomous Driving in Roundabout Maneuvers Using Reinforcement Learning with Q-Learning}\newline
-	Paper ini menyajikan manuver kendaraan otonom di bundaran dengan q-learning menggunakan simulator CARLA.\cite{cit:autonomdrive_roundabout_qlearning} Agent dalam paper tersebut mengambil data kamera rgb serta lidar sebagai parameter dari q-learning.
+	\item \textit{Autonomous Driving in Roundabout Maneuvers Using Reinforcement Learning with Q-Learning oleh Laura Garcia Cuenca, Enrique Puertas Sanz, Javier Fernández, dan Nourdine Aliane}\newline
+	Paper ini menyajikan manuver kendaraan otonom di bundaran dengan q-learning menggunakan simulator CARLA.\cite{cit:autonomdrive_roundabout_qlearning} Agent dalam paper tersebut mengambil data kamera RGB, GPS serta LIDAR sebagai parameter dari q-learning.
+
+	\item \textit{A Perspective on Methods for Trajectory Optimization oleh I. Michael Ross, dan F. Fahroo
+	}\newline
+	Paper ini menyajikan berbagai metode untuk melakukan optimasi \textit{trajectory}\cite{cit:trajectory_optimization}. Optimasi \textit{trajectory} diperlukan untuk memperhalus hasil gerak jalan dari model. Osilasi pada gerak jalan model dapat dikurangi dengan melakukan berbagai metode dari optimasi \textit{trajectory}.
 	
 \end{enumerate}
 
-\section{Gap Penelitian}
+\section{\textit{Gap} Penelitian}
 \label{sec:gap_penelitian}
 
 Dari beberapa penelitian diatas, dapat dilihat ada \textit{gap} penelitian dimana paada penelitian yang dilakukan sebelumnya, belum ada yang melakukan riset mobil otonom untuk melakukan manuver pada bundaran atau u-turn menggunakan \textit{deep reinforcement learning}.

@@ -6,9 +6,9 @@
 Pada bab ini akan membahas tentang pengujian sistem perencanaan gerakan mobil otonom dengan menggunakan algoritma DQN. Kemudian, akan dilakukan analisis terhadap hasil simulasi sistem
 perencanaan gerakan mobil otonom yang telah dirancang.
 
-\section{Training DQN}
+\section{\textit{Training }DQN}
 \label{sec:training_dqn}
-Training algoritma DQN dilakukan dengan menggunakan hardware berikut:
+\textit{Training }algoritma DQN dilakukan dengan menggunakan \textit{hardware }berikut:
 \begin{table}[H]
 	\begin{tabular}{ll}
 		\textbf{CPU}  & Intel Core i5              \\
@@ -21,17 +21,17 @@ Training algoritma DQN dilakukan dengan menggunakan hardware berikut:
 \label{tb:hardwaresetup}
 \end{table}
 
-\textit{Training} dilakukan dengan mesin lokal menggunakan GPU. Lingkungan \textit{software} \textit{machine learning} yang digunakan pada saat \textit{training }berupa:
+\textit{Training} dilakukan dengan mesin menggunakan GPU. Lingkungan \textit{software} \textit{machine learning} yang digunakan pada saat \textit{training }berupa:
 
 \begin{table}[H]
 	\begin{tabular}{ll}
-		\textbf{Software}  & \textbf{Version}              \\
+		\textbf{\textit{Software}}  & \textbf{\textit{Version}}              \\
 		tensorflow-gpu  & 1.13.1	\\
 		keras  & 2.2.5					\\
 		h5py & 3.1              \\
 		python & 3.7.9              \\
 	\end{tabular}
-	\caption{Lingkungan software yang digunakan untuk learning.}
+	\caption{Lingkungan \textit{software }yang digunakan untuk \textit{training}.}
 	\label{tb:softwaresetup}
 \end{table}
 
@@ -357,11 +357,33 @@ Dari hasil pengambilan sampel tersebut didapatkan kesimpulan seperti pada tabel 
 	\label{tb:kesimpulan_notbunderan_segmented}
 \end{table}
 
+\section{Analisis Model DQN}
+\label{sec:analisis_model_dqn}
+Pada bagian ini, dilakukan analisis hasil model dari hasil pengujian model DQN.
+
+\subsection{Analisis Hasil}
+\label{sec:anlisis_hasil}
+
+Dari hasil uji simulasi didapatkan rata-rata deviasi sudut yang cukup besar, yaitu 21.413 pada pengujian podel DQN pada bundaran simpang empat dengan segmentasi grayscale, 27.011 pada pengujian podel DQN pada bundaran simpang empat dengan segmentasi lanjutan, dan 30.068 pada pengujian model DQN pada bundaran tanpa simpang dengan segmentasi lanjutan. Hal ini disebabkan oleh manuver \textit{agent }yang tidak konvergen terhadap target jalurnya. Hasil yang tidak konvergen ini menghasilkan jalur manuver yang berosilasi pada jalurnya. Salah satu penyebab model sulit mendapatkan hasil konvergen adalah karena pengaturan \textit{throttle} pada \textit{agent} di tetapkan pada kecepatan penuh atau bernilai 1.0 sehingga \textit{agent} akan kesulitan untuk mengatur manuver kendaraan. Manuver agent akan menjadi lebih baik jika pengaturan throttle ditetapkan menjadi setengahnya atau bernilai 0.5.
+
+\subsection{Analisis Pengaplikasian Dunia Nyata}
+\label{sec:aplikasi_realworld}
+Simulasi ini dapat diaplikasikan di dunia nyata dengan beberapa kondisi, diantaranya:
+
+\begin{enumerate}\iffalse[nolistsep]\fi
+	\item Diketahuinya posisi \textit{agent} di dunia nyata. Dapat menggunakan GPS dengan akurasi tinggi seperti GPS RTK yang memiliki akurasi senilai 1-5 milimeter.
+	\item Diketahuinya berbagai atribut bundaran seperti posisi bundaran, serta diameter bundaran.
+\end{enumerate}
+
+Setelah dua poin diatas dipenuhi, sistem ini dapat dicoba dan diaplikasikan di dunia nyata.
+
+
+
 
 \iffalse
-\subsection{Hasil Setelah Learning 12 jam}
-\label{sec:hasil_learning_12}
-Setelah learning selama 12 jam, didapatkan model reinforcement yang sudah cukup memahami kehadiran bundaran di depan agent. Pada salah satu run simulasi Gambar \ref{fig:uji0}, didapatkan agent yang mampu bergerak lurus ke depan hingga mendekati bundaran, dan mampu melakukan manuver kanan lalu ke kiri lagi (dan arah kembali sejajar dengan arah pada saat start) agar tidak menyentuh bundaran. Meskipun pada akhirnya agent menyentuh object rumah pada ujung jalan.
+\subsection{Hasil Setelah Training 12 jam}
+\label{sec:hasil_training_12}
+Setelah training selama 12 jam, didapatkan model reinforcement yang sudah cukup memahami kehadiran bundaran di depan agent. Pada salah satu run simulasi Gambar \ref{fig:uji0}, didapatkan agent yang mampu bergerak lurus ke depan hingga mendekati bundaran, dan mampu melakukan manuver kanan lalu ke kiri lagi (dan arah kembali sejajar dengan arah pada saat start) agar tidak menyentuh bundaran. Meskipun pada akhirnya agent menyentuh object rumah pada ujung jalan.
 
 \begin{figure}[H] 
 	\centering
@@ -370,9 +392,9 @@ Setelah learning selama 12 jam, didapatkan model reinforcement yang sudah cukup 
 	\label{fig:uji0}
 \end{figure}
 
-\subsection{Hasil Setelah Learning 58 jam}
-\label{sec:hasil_learning_12}
-Setelah learning selama 58 jam, didapatkan model reinforcement yang sudah cukup memahami gerakan bahwa agent harus memutari bundaran agar mendapatkan award yang lebih besar. Pada salah satu run simulasi Gambar \ref{fig:uji1}., didapatkan agent yang mampu bergerak lurus ke depan hingga mendekati bundaran, dan mampu melakukan manuver kiri untuk menghindari bundaran, lalu melakukan manuver ke kanan mengitari bundaran dan tidak menyentuh bundaran. Meskipun pada akhirnya agent menyentuh object pagar setelah mengitari hampir 3/4 dari bundaran.
+\subsection{Hasil Setelah Training 58 jam}
+\label{sec:hasil_training_12}
+Setelah training selama 58 jam, didapatkan model reinforcement yang sudah cukup memahami gerakan bahwa agent harus memutari bundaran agar mendapatkan award yang lebih besar. Pada salah satu run simulasi Gambar \ref{fig:uji1}., didapatkan agent yang mampu bergerak lurus ke depan hingga mendekati bundaran, dan mampu melakukan manuver kiri untuk menghindari bundaran, lalu melakukan manuver ke kanan mengitari bundaran dan tidak menyentuh bundaran. Meskipun pada akhirnya agent menyentuh object pagar setelah mengitari hampir 3/4 dari bundaran.
 \begin{figure}[H] 
 	\centering
 	\includegraphics[width=1\linewidth]{images/uji1}

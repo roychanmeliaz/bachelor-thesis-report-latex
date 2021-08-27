@@ -118,7 +118,20 @@ Fungsi \textit{reward} dirancang agar mobil otonom mampu bergerak sepanjang lint
 	\label{fig:reward_anglediff_sketch}
 \end{figure}
 
-Garis hitam merupakan vektor tegak lurus antara titik pusat bundaran ke titik pusat \textit{agent}. Lalu garis merah adalah vektor arah mobil. Dari kedua nilai tersebut, didapat alpha yang merupakan sudut dari kedua vektor tersebut. Kemudian nilai \textit{reward }didefinisikan dengan 1/alpha.
+Garis hitam merupakan vektor tegak lurus antara titik pusat bundaran ke titik pusat \textit{agent}. Lalu garis merah adalah vektor arah mobil. Dari kedua nilai tersebut, didapat alpha yang merupakan sudut dari kedua vektor tersebut. Kemudian nilai \textit{reward }didefinisikan dengan persamaan \ref{eq:r1}.
+
+\begin{equation}
+	R_1 = \frac{1}{\alpha}
+	\label{eq:r1}
+\end{equation}
+
+Nilai tertinggi \textit{reward} kemudian dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi \textit{reward }yang diberikan ke agent tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti dijelaskan pada persamaan \ref{eq:maxr1}.
+
+
+\begin{equation}
+	R_1 = \begin{cases}R_1 & 0 < R_1 < 1\\1 & R_1 > 1\end{cases}
+	\label{eq:maxr1}
+\end{equation}
 
 Potongan kode dari fungsi \textit{reward} deviasi sudut terdapat pada Listing \ref{lst:reward_deviasi_sudut}.
 
@@ -128,8 +141,9 @@ caption={\textit{Reward} Deviasi Sudut.},
 label={lst:reward_deviasi_sudut}
 ]{program/reward_deviasi_sudut.py}
 
-Terlihat pada potongan kode Listing \ref{lst:reward_deviasi_sudut} nilai tertinggi \textit{reward} dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi reward yang diberikan ke agent tidak terlalu tinggi untuk perubahan nilai yang kecil.
-
+\iffalse
+Terlihat pada potongan kode Listing \ref{lst:reward_deviasi_sudut} nilai tertinggi \textit{reward} dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi \textit{reward }yang diberikan ke agent tidak terlalu tinggi untuk perubahan nilai yang kecil.
+\fi
 
 \subsubsection{\textit{Reward} 2: Deviasi jarak dari \textit{target lane}}
 \textit{Reward} yang digunakan pada \textit{reward} 2 adalah \verb=1/deviasi_jarak*10=. Deviasi jarak adalah jarak terkecil \textit{agent} terhadap \textit{target lane} dalam meter.
@@ -141,6 +155,21 @@ Terlihat pada potongan kode Listing \ref{lst:reward_deviasi_sudut} nilai terting
 	\label{fig:reward_deviasi_jarak}
 \end{figure}
 
+Lingkaran merah merupakan target jalan \textit{agent}. Lalu garis biru adalah jarak dari \textit{agent} menuju target jalan yang kemudian disebut dengan deviasi jarak. Kemudian nilai \textit{reward }didefinisikan dengan persamaan \ref{eq:r2}.
+
+\begin{equation}
+	R_2 = \frac{1}{deviasi\_jarak*10}
+	\label{eq:r2}
+\end{equation}
+
+Nilai tertinggi \textit{reward} kemudian dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi \textit{reward }yang diberikan ke agent tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti dijelaskan pada persamaan \ref{eq:maxr2}.
+
+\begin{equation}
+	R_2 = \begin{cases}R_2 & 0 < R_2 < 1\\1 & R_2 > 1\end{cases}
+	\label{eq:maxr2}
+\end{equation}
+
+
 Potongan kode dari fungsi \textit{reward} deviasi jarak terdapat pada Listing \ref{lst:reward_deviasi_jarak}.
 
 \lstinputlisting[
@@ -149,13 +178,20 @@ caption={\textit{Reward} Deviasi Jarak.},
 label={lst:reward_deviasi_jarak}
 ]{program/reward_deviasi_jarak.py}
 
+\iffalse
 Terlihat pula pada potongan kode Listing \ref{lst:reward_deviasi_jarak} nilai tertinggi \textit{reward} dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi \textit{reward} yang diberikan ke \textit{agent} juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada \textit{Reward} 1.
-
+\fi
 
 Selain \textit{reward} yang bernilai positif, diperlukan juga \textit{reward} yang bernilai negatif untuk mengurangi peluang \textit{agent} melakukan hal yang sebaiknya tidak dilakukan. Ada dua buah \textit{reward} bernilai negatif yang diberikan.
 
 \subsubsection{\textit{Reward} 3: Sentuhan dengan obyek lain}
-\textit{Reward} senilai -1 akan diberikan pada \textit{agent} jika \textit{agent} menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
+\textit{Reward} senilai -1 akan diberikan pada \textit{agent} jika \textit{agent} menyentuh obyek lain selain jalan raya, tanah, dan trotoar. Nilai reward didefinisikan pada persamaan \ref{eq:r3}.
+
+\begin{equation}
+	R_3 = \begin{cases}-1 & terjadi\: collision\\0 & tidak\:terjadi\: collision\end{cases}
+	\label{eq:r3}
+\end{equation}
+
 
 Potongan kode dari fungsi \textit{reward} sentuhan dengan obyek lain terdapat pada Listing \ref{lst:reward_car_collided}.
 
@@ -166,7 +202,7 @@ label={lst:reward_car_collided}
 ]{program/reward_car_collided.py}
 
 \subsubsection{\textit{Reward} 4: Deviasi jarak terlalu besar}
-\textit{Reward} senilai -0.5 akan diberikan pada \textit{agent} jika jarak antara \textit{agent} dan bundaran lebih besar dari 30 meter. Jarak 30 meter dari bundaran dapat dilihat di Gambar \ref{fig:punishment_lane_line}
+\textit{Reward} senilai -0.5 akan diberikan pada \textit{agent} jika jarak antara \textit{agent} dan bundaran lebih besar dari 30 meter. Jarak 30 meter dari bundaran dapat dilihat di Gambar \ref{fig:punishment_lane_line}.
 
 \begin{figure}[H] 
 	\centering
@@ -175,17 +211,30 @@ label={lst:reward_car_collided}
 	\label{fig:punishment_lane_line}
 \end{figure}
 
+Nilai reward didefinisikan pada persamaan \ref{eq:r4}.
+
+\begin{equation}
+	R_4 = \begin{cases}-0.5 & agent\: keluar\:dari\:lingkaran\:merah\\0 & agent\:di\:dalam\:lingkaran\: merah\end{cases}
+	\label{eq:r4}
+\end{equation}
+
+
 Potongan kode dari fungsi \textit{reward} deviasi jarak terlalu besar terdapat pada Listing \ref{lst:reward_too_far}.
 
 \lstinputlisting[
 language=Python,
-caption={Reward Deviasi Jarak Terlalu Besar.},
+caption={\textit{Reward} Deviasi Jarak Terlalu Besar.},
 label={lst:reward_too_far}
 ]{program/reward_too_far.py}
 
 
 \subsubsection{\textit{Reward }Total}
-Total nilai \textit{reward} didefinisikan dengan \textit{Reward }1 + \textit{Reward }2 + \textit{Reward }3 + \textit{Reward }4.
+Total nilai \textit{reward} didefinisikan dengan jumlah dari seluruh reward seperti yang didefinisikan pada persamaan \ref{eq:rtot}.
+
+\begin{equation}
+	R_{total} = R_1+R_2+R_3+R_4
+	\label{eq:rtot}
+\end{equation}
 
 \subsection{Bundaran Tanpa Simpang}
 Pada bundaran tanpa simpang, fungsi \textit{reward} yang diberikan berbeda. Pada kasus ini disediakan titik-titik jalur sebagai \textit{waypoint} yang harus diikuti oleh \textit{agent}.
@@ -218,7 +267,21 @@ Gambar \ref{fig:waypoint_fromside} menunjukkan bahwa \textit{waypoint} terdekat 
 	\label{fig:reward_alpha}
 \end{figure}
 
-Ilustrasi fungsi \textit{reward} dapat dilihat pada Gambar \ref{fig:reward_alpha}, dimana titik-titik hijau adalah \textit{waypoints}, garis merah adalah arah dari \textit{agent}, garis hitam adalah arah dari \textit{agent} ke \textit{waypoint}+5 dari \textit{agent}, serta alpha adalah perbedaan sudut dari kedua nilai sudut tersebut.
+Ilustrasi fungsi \textit{reward} dapat dilihat pada Gambar \ref{fig:reward_alpha}, dimana titik-titik hijau adalah \textit{waypoints}, garis merah adalah arah dari \textit{agent}, garis hitam adalah arah dari \textit{agent} ke \textit{waypoint}+5 dari \textit{agent}, serta alpha adalah perbedaan sudut dari kedua nilai sudut tersebut. Nilai reward kemudian didefinisikan pada persamaan \ref{eq:r1_nobundaran}.
+
+\begin{equation}
+	R_1 = \frac{1}{\alpha}
+	\label{eq:r1_nobundaran}
+\end{equation}
+
+Nilai tertinggi \textit{reward} kemudian dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi \textit{reward }yang diberikan ke agent tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti dijelaskan pada persamaan \ref{eq:maxr1_nobundaran}.
+
+
+\begin{equation}
+	R_1 = \begin{cases}R_1 & 0 < R_1 < 1\\1 & R_1 > 1\end{cases}
+	\label{eq:maxr1_nobundaran}
+\end{equation}
+
 
 Potongan kode dari fungsi \textit{reward} terdapat pada Listing \ref{lst:reward_alpha}.
 
@@ -228,15 +291,27 @@ caption={\textit{Reward} Alpha.},
 label={lst:reward_alpha}
 ]{program/reward_alpha.py}
 
+\iffalse
 Terlihat pula pada potongan kode Listing \ref{lst:reward_alpha} nilai tertinggi \textit{reward} dibatasi menjadi 1. Hal ini dilakukan agar fluktuasi \textit{reward} yang diberikan ke \textit{agent} juga tidak terlalu tinggi untuk perubahan nilai yang kecil, seperti pada \textit{Reward} 1 dan \textit{Reward} 2 pada bundaran simpang empat.
+\fi
 
 \subsubsection{\textit{Reward} 2: Sentuhan dengan obyek lain}
-\textit{Reward} senilai -1 akan diberikan pada \textit{agent} jika \textit{agent} menyentuh obyek lain selain jalan raya, tanah, dan trotoar.
+\textit{Reward} senilai -1 akan diberikan pada \textit{agent} jika \textit{agent} menyentuh obyek lain selain jalan raya, tanah, dan trotoar. Nilai reward didefinisikan pada persamaan \ref{eq:r2_nobundaran}.
+
+\begin{equation}
+	R_2 = \begin{cases}-1 & terjadi\: collision\\0 & tidak\:terjadi\: collision\end{cases}
+	\label{eq:r2_nobundaran}
+\end{equation}
 
 Potongan kode dari fungsi \textit{reward} sentuhan dengan obyek lain terdapat pada Listing \ref{lst:reward_car_collided}.
 
 \subsubsection{\textit{Reward }Total}
-Total nilai \textit{reward} didefinisikan dengan \textit{Reward} 1 + \textit{Reward} 2.
+Total nilai \textit{reward} didefinisikan dengan jumlah dari seluruh reward seperti yang didefinisikan pada persamaan \ref{eq:rtot_nobundaran}.
+
+\begin{equation}
+	R_{total} = R_1+R_2
+	\label{eq:rtot_nobundaran}
+\end{equation}
 
 \subsection{End Episode}
 \label{sec:end_episode}
@@ -284,14 +359,14 @@ SAVE_CHECKPOINT_EVERY = 50
 		\begin{tabular}{|l|l|l|}
 			\hline
 			\textbf{\textit{Hyperparameter}}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
-			DISCOUNT                  & 0.99           & \begin{tabular}[c]{@{}l@{}}Nilai faktor discount dalam\\ perhitungan reward algoritma DQN\end{tabular}                                        \\ \hline
-			REPLAY\_MEMORY\_SIZE      & 20\_000        & \begin{tabular}[c]{@{}l@{}}Berapa banyak step terakhir yang\\ disimpan untuk training model\end{tabular}                                      \\ \hline
-			MIN\_REPLAY\_MEMORY\_SIZE & 5\_000         & \begin{tabular}[c]{@{}l@{}}Jumlah step minimum dalam\\ memori untuk memulai training\end{tabular}                                             \\ \hline
-			OPTIMIZER\_LEARNING\_RATE & 0.001          & \begin{tabular}[c]{@{}l@{}}Laju pembelajaran yang digunakan\\ pada optimizer\end{tabular}                                                     \\ \hline
-			OPTIMIZER\_DECAY          & 0.0            & \begin{tabular}[c]{@{}l@{}}Pengurangan laju pembelajaran\\ pada optimizer setiap episodenya\end{tabular}                                      \\ \hline
+			DISCOUNT                  & 0.99           & \begin{tabular}[c]{@{}l@{}}Nilai faktor \textit{discount }dalam\\ perhitungan \textit{reward }algoritma DQN\end{tabular}                                        \\ \hline
+			REPLAY\_MEMORY\_SIZE      & 20\_000        & \begin{tabular}[c]{@{}l@{}}Berapa banyak \textit{step} terakhir yang\\ disimpan untuk \textit{training} model\end{tabular}                                      \\ \hline
+			MIN\_REPLAY\_MEMORY\_SIZE & 5\_000         & \begin{tabular}[c]{@{}l@{}}Jumlah \textit{step }minimum dalam\\ memori untuk memulai \textit{training}\end{tabular}                                             \\ \hline
+			OPTIMIZER\_LEARNING\_RATE & 0.001          & \begin{tabular}[c]{@{}l@{}}Laju pembelajaran yang digunakan\\ pada \textit{optimizer}\end{tabular}                                                     \\ \hline
+			OPTIMIZER\_DECAY          & 0.0            & \begin{tabular}[c]{@{}l@{}}Pengurangan laju pembelajaran\\ pada \textit{optimizer} setiap episodenya\end{tabular}                                      \\ \hline
 		\end{tabular}%
 	}
-	\caption{Hyperparameter DQN.}
+	\caption{\textit{Hyperparameter }DQN.}
 	\label{tb:hyperparameter_dqn}
 \end{table}
 
@@ -304,25 +379,52 @@ MIN_REPLAY_MEMORY_SIZE = 5_000
 \fi
 
 \subsection{\textit{Epsilon}}
+\label{sec:epsilon}
 
 \begin{table}[H]
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{|l|l|l|}
 			\hline
-			\textbf{\textit{Hyperparameter}}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
+			\textbf{\textit{\textit{Hyperparameter}}}   & \textbf{Nilai} & \textbf{Deskripsi}                                                                                                                            \\ \hline
 
-			START\_EPSILON            & 1              & \begin{tabular}[c]{@{}l@{}}Nilai epsilon saat pertamakali\\ mulai training\end{tabular}                                                       \\ \hline
-			EPSILON\_DECAY            & 0.9995         & \begin{tabular}[c]{@{}l@{}}Penurunan nilai epsilon di setiap\\ episodenya\end{tabular}                                                        \\ \hline
-			MIN\_EPSILON              & 0.1            & \begin{tabular}[c]{@{}l@{}}Epsilon terendah yang\\ diperbolehkan\end{tabular}                                                                 \\ \hline
+			START\_EPSILON            & 1              & \begin{tabular}[c]{@{}l@{}}Nilai \textit{epsilon }saat pertamakali\\ mulai \textit{training}\end{tabular}                                                       \\ \hline
+			EPSILON\_DECAY            & 0.9995         & \begin{tabular}[c]{@{}l@{}}Penurunan nilai \textit{epsilon} di setiap\\ episodenya\end{tabular}                                                        \\ \hline
+			MIN\_EPSILON              & 0.1            & \begin{tabular}[c]{@{}l@{}}\textit{Epsilon }terendah yang\\ diperbolehkan\end{tabular}                                                                 \\ \hline
 		\end{tabular}%
 	}
-	\caption{Hyperparameter epsilon.}
+	\caption{\textit{Hyperparameter epsilon}.}
 	\label{tb:hyperparameter_epsilon}
 \end{table}
-Penentuan parameter \textit{epsilon} ditentukan oleh kondisi berikut. \textit{Epsilon} akan bernilai 1 saat pertamakali memulai learning atau pada saat episode 0. Setiap dimulainya episode baru, nilai \textit{epsilon} akan dikali dengan nilai 0.9995 hingga pada akhirnya akan bernilai 0.1 setelah 4700 episode. Pengurangan nilai \textit{epsilon} akan berhenti setelah sampai pada nilai 0.1.
+Penentuan parameter \textit{epsilon} didefinisikan dengan persamaan \ref{eq:eps_decay}.
+
+\begin{equation}
+	\epsilon_{episode} = \epsilon_{episode-1} * EPSILON\_DECAY
+	\label{eq:eps_decay}
+\end{equation}
+
+ \textit{Epsilon} akan bernilai START\_EPSILON (1) saat pertamakali memulai \textit{training }atau pada saat episode 0. Setiap dimulainya episode baru, nilai \textit{epsilon} akan dikali dengan nilai EPSILON\_DECAY (0.9995) hingga pada akhirnya akan bernilai MIN\_EPSILON (0.1) setelah 4700 episode. Pengurangan nilai \textit{epsilon} akan berhenti setelah sampai pada nilai MIN\_EPSILON (0.1), seperti yang didefinisikan pada persamaan \ref{eq:eps_min}.
+
+\begin{equation}
+	\epsilon = \begin{cases}\epsilon & MIN\_EPSILON < \epsilon < 1\\MIN\_EPSILON & \epsilon < MIN\_EPSILON\end{cases}	\label{eq:eps_min}
+\end{equation}
+
+\iffalse
+\begin{figure}[H] 
+	\centering
+	\includegraphics{images/epsilon_formula}
+	\caption{Formula Epsilon}
+	\label{fig:epsilon_formula}
+\end{figure}
+\fi
+
+\begin{equation}
+	A_t = \begin{cases}max\:Q_t(a) & dengan\:probabilitas\:1-\epsilon\\acak(a) & dengan\:probabilitas\:\epsilon\end{cases}
+	\label{eq:at}
+\end{equation}
+
+Dari persamaan \ref{eq:at} didapatkan bahwa \textit{action }dari \textit{agent} yang dilakukan pada saat t dipengaruhi oleh epsilon. Saat epsilon tinggi, kemungkinan besar \textit{action} yang dilakukan saat t adalah acak, atau disebut juga dengan eksplorasi. Namun saat epsilon rendah, kemungkinan besar \textit{action} yang dilakukan saat t adalah \textit{action} yang telah diketahui terbaik sesuai kondisi state saat itu, atau disebut juga dengan eksploitasi.
 
 Penentuan parameter \textit{epsilon-greedy} ini dilakukan agar \textit{agent} mampu melakukan kegiatan eksplorasi dan eksploitasi dengan tepat. Sehingga hasil yang didapatkan akan baik dalam waktu cepat.
-\label{sec:epsilon}
 
 \iffalse
 \begin{verbatim}
